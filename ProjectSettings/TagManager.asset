@@ -41,11 +41,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
+  - name: Space
     uniqueID: 22045415
+    locked: 0
+  - name: Background
+    uniqueID: 1795971247
     locked: 0
   - name: Ships
     uniqueID: 1770926255
+    locked: 0
+  - name: Foreground
+    uniqueID: 4124981841
     locked: 0
   m_RenderingLayers:
   - Default

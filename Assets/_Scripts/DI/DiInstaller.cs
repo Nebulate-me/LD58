@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Scripts.Game;
 using _Scripts.Utils.AudioTool;
 using _Scripts.Utils.AudioTool.Sounds;
 using AudioTools.Sound;
@@ -15,6 +16,7 @@ namespace _Scripts.DI
     public class DiInstaller : MonoInstaller
     {
         [SerializeField] private PrefabPool prefabPool;
+        [SerializeField] private ScoreService scoreService;
 
         [ShowInInspector, ReadOnly] private Camera uiCamera;
 
@@ -37,6 +39,10 @@ namespace _Scripts.DI
             Container.Bind<Camera>().WithId("uiCamera").FromInstance(uiCamera).AsSingle();
 
             Container.Bind<ISoundManager<SoundType>>().To<SoundManager>().AsSingle().NonLazy();
+            
+            Container.Bind<IScoreService>()
+                .FromInstance(scoreService)
+                .AsSingle();
         }
 
         private void OnDisable()
