@@ -1,37 +1,39 @@
-﻿using UnityEngine;
+﻿using _Scripts.Common;
+using UnityEngine;
 using Utilities.Prefabs;
 using Zenject;
 
 namespace _Scripts.Ships.Modules
 {
-    [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(Collider2D), typeof(Health))]
     public class ShipModule : MonoBehaviour
     {
+        [SerializeField] private Health health;
         [SerializeField] private ModuleConfig moduleConfig;
         
         [Inject] private IPrefabPool prefabPool;
         
         private TrainController train;
-        private int health = 1;
 
         public ModuleType Type => moduleConfig.ModuleType;
-        public bool RequiresRepair => health < moduleConfig.MaxModuleHealth;
-        public int Score => Mathf.RoundToInt(moduleConfig.Score * health / (float) moduleConfig.MaxModuleHealth);
+        public bool RequiresRepair => health.CurrentHealth < moduleConfig.MaxModuleHealth;
+        public int Score => Mathf.RoundToInt(moduleConfig.Score * health.CurrentHealth / (float) moduleConfig.MaxModuleHealth);
+        public IHealth Health => health;
 
         public void Repair(int repairValue = 0)
         {
             if (repairValue == 0)
             {
-                health = moduleConfig.MaxModuleHealth;
+                health.Heal(health.MaxHealth);
                 return;
             }
             
-            health = Mathf.Clamp(health + repairValue, 0, moduleConfig.MaxModuleHealth);
+            health.Heal(repairValue);
         }
 
         private void Start()
         {
-            health = moduleConfig.MaxModuleHealth;
+            health.SetUp(moduleConfig.MaxModuleHealth);
         }
 
         public void AssignToTrain(TrainController t)
@@ -39,7 +41,7 @@ namespace _Scripts.Ships.Modules
             train = t;
         }
 
-        public void DestroyCar()
+        public void DestroyModule()
         {
             if (train != null)
             {

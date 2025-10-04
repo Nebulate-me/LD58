@@ -49,7 +49,7 @@ namespace _Scripts.Static
             
             foreach (var shipModule in modulesToDestroy)
             {
-                shipModule.DestroyCar();
+                shipModule.DestroyModule();
             }
         }
     }

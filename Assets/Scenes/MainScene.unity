@@ -758,8 +758,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8459466048204171748}
+  m_Children: []
   m_Father: {fileID: 2010884064}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1761480724 stripped
@@ -839,6 +838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2010884064}
   - component: {fileID: 2010884065}
+  - component: {fileID: 2010884066}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -876,15 +876,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86419f0ae5384e32ae378c350ce177b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainParent: {fileID: 1458517961}
+  shipParent: {fileID: 1458517961}
   staticParent: {fileID: 1585925208}
   playerTrainPrefab: {fileID: 5860414525004747481, guid: cbde7c7e022297a4bae1efc80359000e, type: 3}
-  traderTrainPrefab: {fileID: 5860414525004747481, guid: 58414fa2ba2404144b2d61040a5d9acd, type: 3}
-  locomotiveModulePrefab: {fileID: 6904372714485702208, guid: a136cf0f47fb8574ba31224ce8ad583c, type: 3}
-  cargoModulePrefab: {fileID: 7354222955467436449, guid: 24b4e600c09e6444a856a331594323ce, type: 3}
   taxStationPrefab: {fileID: 5514895927554541824, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
   playerSpawnPos: {x: 0, y: 0}
   aiSpawnPos: {x: 10, y: 0}
+--- !u!114 &2010884066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010884063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4df6b4bfc5e47dcbf6a4bcdcd5e4e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenEvents: 15
+  gameInitializer: {fileID: 2010884065}
+  traderEncounterPrefab: {fileID: 57854973891922840, guid: a068ac63cab45924d80e45073bfbb608, type: 3}
+  asteroidFieldPrefab: {fileID: 1173076442190186374, guid: ecf3eeded476eab40ad3d7d33baedd39, type: 3}
+  taxStationPrefab: {fileID: 5514895927554541824, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
 --- !u!1001 &6389537224375172186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -942,68 +956,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbf57ebf30f7754caf4936fd0232b73, type: 3}
---- !u!1001 &8459466048204171747
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1585925208}
-    m_Modifications:
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5514895927554541824, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-      propertyPath: m_Name
-      value: TaxStation
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
---- !u!4 &8459466048204171748 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4250398623266469194, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-  m_PrefabInstance: {fileID: 8459466048204171747}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

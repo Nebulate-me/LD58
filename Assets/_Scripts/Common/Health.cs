@@ -1,0 +1,74 @@
+﻿using System;
+using Sirenix.OdinInspector;
+using UnityEngine;
+using Utilities.Prefabs;
+using Zenject;
+
+namespace _Scripts.Common
+{
+    public class Health : MonoBehaviour, IHealth, IPoolableResource
+    {
+        [SerializeField] private int maxHealth = 3;
+
+        public int MaxHealth => maxHealth;
+        [ShowInInspector, ReadOnly] public int CurrentHealth { get; private set; }
+        
+        [Inject] private IPrefabPool prefabPool;
+
+        public bool IsDead { get; private set; } = false;
+        public bool IsAlive => CurrentHealth > 0;
+
+        public event Action<Health> OnDamaged;
+        public event Action<Health> OnHealed;
+        public event Action<Health> OnDeath;
+
+        public void SetUp(int newMaxHealth)
+        {
+            maxHealth = newMaxHealth;
+            CurrentHealth = newMaxHealth;
+        }
+
+        public void Damage(int amount)
+        {
+            if (amount <= 0 || !IsAlive) return;
+
+            CurrentHealth -= amount;
+            CurrentHealth = Mathf.Max(CurrentHealth, 0);
+
+            OnDamaged?.Invoke(this);
+
+            if (CurrentHealth <= 0)
+            {
+                Die();
+            }
+        }
+
+        public void Heal(int amount)
+        {
+            if (amount <= 0 || !IsAlive) return;
+
+            CurrentHealth += amount;
+            CurrentHealth = Mathf.Min(CurrentHealth, maxHealth);
+
+            OnHealed?.Invoke(this);
+        }
+
+        private void Die()
+        {
+            if (IsDead) return;
+            IsDead = true;
+            prefabPool.Despawn(gameObject);
+            OnDeath?.Invoke(this);
+        }
+
+        public void OnSpawn()
+        {
+            CurrentHealth = maxHealth;
+        }
+
+        public void OnDespawn()
+        {
+            IsDead = false;
+        }
+    }
+}

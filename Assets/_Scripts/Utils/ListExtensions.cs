@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace _Scripts.Utils
 {
@@ -13,6 +15,14 @@ namespace _Scripts.Utils
                 ts[i] = ts[r];
                 ts[r] = tmp;
             }
+        }
+        
+        public static bool TryGetFirst<TSource>(this IEnumerable<TSource> enumerable, Func<TSource, bool> predicate, out TSource first)
+        {
+            first = default(TSource);
+            if (enumerable == null) return false;
+            first = enumerable.FirstOrDefault(predicate);
+            return first != null && !first.Equals(default(TSource));
         }
     }
 }

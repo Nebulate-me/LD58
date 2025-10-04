@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Scripts.Game;
+using _Scripts.Ships.Modules;
 using _Scripts.Utils.AudioTool;
 using _Scripts.Utils.AudioTool.Sounds;
 using AudioTools.Sound;
@@ -17,6 +18,7 @@ namespace _Scripts.DI
     {
         [SerializeField] private PrefabPool prefabPool;
         [SerializeField] private ScoreService scoreService;
+        [SerializeField] private ModuleRegistry moduleRegistry;
 
         [ShowInInspector, ReadOnly] private Camera uiCamera;
 
@@ -43,6 +45,10 @@ namespace _Scripts.DI
             Container.Bind<IScoreService>()
                 .FromInstance(scoreService)
                 .AsSingle();
+            Container.Bind<IModuleRegistry>()
+                .FromInstance(moduleRegistry)
+                .AsSingle();
+            
         }
 
         private void OnDisable()

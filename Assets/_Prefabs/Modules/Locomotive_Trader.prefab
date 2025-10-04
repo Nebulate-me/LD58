@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7998205817858343700}
   - component: {fileID: 9097260060425157846}
+  - component: {fileID: 5308192347308679330}
   - component: {fileID: 4645579474378131919}
   - component: {fileID: 2699884140036178618}
   - component: {fileID: 1181594249118235867}
   - component: {fileID: 2975974553850373555}
   m_Layer: 0
-  m_Name: Locomotive
+  m_Name: Locomotive_Trader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 6904372714485702208}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.355, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: -1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,7 +49,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d7c2ee89574676843a425e5055701f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleConfig: {fileID: 11400000, guid: f238a745be955f24e9f554c723c97df2, type: 2}
+  health: {fileID: 5308192347308679330}
+  moduleConfig: {fileID: 11400000, guid: 2ba93dac2c7719c4aa209894ce64d078, type: 2}
+--- !u!114 &5308192347308679330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6904372714485702208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23140639fdea449a83fffba854737dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!114 &4645579474378131919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +121,7 @@ SpriteRenderer:
   m_SortingLayerID: 1770926255
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1072667401, guid: 887126c250374034c924f4015a4f955f, type: 3}
+  m_Sprite: {fileID: -1768926424, guid: 887126c250374034c924f4015a4f955f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,7 +166,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0007443428, y: 0.03014955}
+  m_Offset: {x: -0.0007443428, y: -0.009910092}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -161,7 +176,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8759705, y: 0.49038583}
+  m_Size: {x: 0.8759705, y: 0.44231424}
   m_EdgeRadius: 0
 --- !u!50 &2975974553850373555
 Rigidbody2D:

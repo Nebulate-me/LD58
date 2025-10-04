@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a914e3b64ed147e38dcd8a5d40c65d79, type: 3}
-  m_Name: LocomotiveModule
+  m_Name: LocomotiveModule_Trader
   m_EditorClassIdentifier: 
   moduleType: 1
-  maxModuleHealth: 5
+  locomotiveType: 2
+  cargoType: 0
+  prefab: {fileID: 6904372714485702208, guid: 8ee8ba8402a27e5498e58cf7e3079373, type: 3}
+  maxModuleHealth: 3
   score: 0

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a914e3b64ed147e38dcd8a5d40c65d79, type: 3}
-  m_Name: CargoModule_Material
+  m_Name: CargoModule_Captive
   m_EditorClassIdentifier: 
   moduleType: 2
-  cargoType: 1
-  prefab: {fileID: 7354222955467436449, guid: 24b4e600c09e6444a856a331594323ce, type: 3}
-  maxModuleHealth: 3
-  score: 50
+  cargoType: 3
+  prefab: {fileID: 7354222955467436449, guid: 12e62410d4d1f7840b398e741ae5983e, type: 3}
+  maxModuleHealth: 1
+  score: 150
