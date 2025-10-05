@@ -9,6 +9,7 @@ namespace _Scripts.Game.UI
     [RequireComponent(typeof(Image))]
     public class LevelMapEncounterIcon : MonoBehaviour
     {
+        [SerializeField] private float upcomingEventInterval = 10f;
         [Header("Colors")]
         [SerializeField] private Color upcomingColor = new(1f, 1f, 1f, 0.6f);
         [SerializeField] private Color activeColor = Color.white;
@@ -51,29 +52,28 @@ namespace _Scripts.Game.UI
 
             // if this is the next upcoming event (active window)
             float timeToEvent = encounterTime - elapsedTime;
-            if (timeToEvent <= 5f && !_isActive) // start glowing 5s before
+            if (timeToEvent <= upcomingEventInterval && !_isActive) // start glowing 5s before
             {
                 _isActive = true;
                 SetActive();
             }
-            else if (timeToEvent > 5f && _isActive)
+            else if (timeToEvent > upcomingEventInterval && _isActive)
             {
                 _isActive = false;
                 SetUpcoming();
             }
 
             if (_isActive)
-                PulseGlow();
+                Pulse();
         }
 
         private void SetUpcoming() => _image.color = upcomingColor;
         private void SetActive() => _image.color = activeColor;
         private void SetCompleted() => _image.color = completedColor;
 
-        private void PulseGlow()
+        private void Pulse()
         {
-            float glow = (Mathf.Sin(Time.time * glowSpeed) * 0.5f + 0.5f) * glowIntensity;
-            _image.color = Color.Lerp(activeColor, Color.white, glow);
+            transform.localScale = Vector3.one * (1 + Mathf.Sin(Time.time * 4f) * 0.1f);
         }
     }
 }
