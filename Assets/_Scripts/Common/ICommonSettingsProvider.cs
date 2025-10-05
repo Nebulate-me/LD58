@@ -4,5 +4,6 @@ namespace _Scripts.Common
     {
         float RightMargin { get; }
         float OtherMargins { get; }
+        float ModuleSpacing { get; }
     }
 }

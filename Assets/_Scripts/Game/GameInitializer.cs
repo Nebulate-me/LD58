@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Collections.Generic;
+using System.Numerics;
 using _Scripts.Ships;
 using _Scripts.Ships.Modules;
 using UnityEngine;
@@ -49,14 +50,12 @@ namespace _Scripts.Game
             
             PlayerShip = prefabPool.Spawn(trainPrefab, playerSpawnPos, Quaternion.identity).GetComponent<TrainController>();
             PlayerShip.IsPlayerControlled = true;
-
-            var cannon = prefabPool.Spawn(cannonConfig.Prefab, playerSpawnPos, Quaternion.identity, PlayerShip.transform);
-            var cargo  = prefabPool.Spawn(cargoConfig.Prefab,  playerSpawnPos + Vector3.right * carSpacing, Quaternion.identity, PlayerShip.transform);
-            var loco   = prefabPool.Spawn(locomotiveConfig.Prefab, playerSpawnPos + Vector3.right * carSpacing * 2f, Quaternion.identity, PlayerShip.transform);
-
-            PlayerShip.AddModule(loco.GetComponent<ShipModule>());
-            PlayerShip.AddModule(cargo.GetComponent<ShipModule>());
-            PlayerShip.AddModule(cannon.GetComponent<ShipModule>());
+            var startingPlayerShipConfiguration = new ShipConfiguration
+            {
+                Facing = FacingDirection.Right,
+                Modules = new List<ModuleConfig> { locomotiveConfig, cargoConfig, cannonConfig}
+            };
+            PlayerShip.AssembleShip(startingPlayerShipConfiguration, playerSpawnPos);
         }
 
     }

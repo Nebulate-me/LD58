@@ -11,7 +11,11 @@ namespace _Scripts.Common
         [Tooltip("Extra margin outside the top/bottom/left before despawning.")]
         [SerializeField] private float otherMargins = 2f;
         
+        [Tooltip("Spacing between Ship Modules")]
+        [SerializeField] private float moduleSpacing = 1.5f;
+        
         public float RightMargin => rightMargin;
         public float OtherMargins => otherMargins;
+        public float ModuleSpacing => moduleSpacing;
     }
 }

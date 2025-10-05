@@ -1,9 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using _Scripts.Common;
 using _Scripts.Ships.Modules;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Utilities.Prefabs;
+using Zenject;
 
 namespace _Scripts.Ships
 {
@@ -16,6 +18,10 @@ namespace _Scripts.Ships
         [ShowInInspector, ReadOnly] private List<ShipModule> modules = new();
         [ShowInInspector, ReadOnly] private ShipModule head;
         [ShowInInspector, ReadOnly] private bool isPlayerControlled = false;
+        
+        [Inject] private IPrefabPool prefabPool;
+        [Inject] private ICommonSettingsProvider commonSettingsProvider;
+        [Inject] private IModuleRegistry moduleRegistry;
 
         public bool IsPlayerControlled
         {
@@ -26,12 +32,10 @@ namespace _Scripts.Ships
         void Update()
         {
             if (head == null) return;
-
-            // 1. Update head
+            
             head.UpdateHead(isPlayerControlled);
-
-            // 2. Update followers
-            for (int i = 1; i < modules.Count; i++)
+            
+            for (var i = 1; i < modules.Count; i++)
             {
                 modules[i].Follow(modules[i - 1].transform.position, spacing, moveSpeed);
             }
@@ -101,7 +105,22 @@ namespace _Scripts.Ships
                 Debug.Log($"{name} picked up loose cargo {cargo.name}");
             }
         }
-
+        
+        public void AssembleShip(ShipConfiguration shipConfiguration, Vector3 startPos)
+        {
+            var currentModulePosition = startPos;
+            var positionIncrement = (int) shipConfiguration.Facing * -commonSettingsProvider.ModuleSpacing;
+            
+            foreach (var moduleConfig in shipConfiguration.Modules)
+            {
+                var module = prefabPool
+                    .Spawn(moduleConfig.Prefab, currentModulePosition, Quaternion.identity, transform)
+                    .GetComponent<ShipModule>();
+                currentModulePosition += Vector3.right * positionIncrement;
+                
+                AddModule(module);
+            }
+        }
 
         public IReadOnlyList<ShipModule> GetModules() => modules;
 
