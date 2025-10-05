@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5983963731030755298}
   - component: {fileID: 2291999517718060991}
   - component: {fileID: 1474703363856401765}
-  - component: {fileID: 1055278065463091017}
   - component: {fileID: -6795576658126688998}
+  - component: {fileID: -4223042071427376253}
   - component: {fileID: 17227665168938058}
   - component: {fileID: 4523560187712799301}
   - component: {fileID: 5921670999532740468}
@@ -66,19 +66,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
---- !u!114 &1055278065463091017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7354222955467436449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3664e3162a24fc5979d402cffe290db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moduleCollider: {fileID: 4523560187712799301}
 --- !u!114 &-6795576658126688998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +79,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashDuration: 0.1
+--- !u!114 &-4223042071427376253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7354222955467436449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a16dc21927e493781367e5acec537d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &17227665168938058
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -181,7 +180,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.020403668}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -191,7 +190,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.6681042, y: 0.5008189}
+  m_Size: {x: 0.7871258, y: 0.6300423}
   m_EdgeRadius: 0
 --- !u!50 &5921670999532740468
 Rigidbody2D:

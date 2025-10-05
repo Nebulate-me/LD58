@@ -1,10 +1,10 @@
 ﻿using _Scripts.Ships.Modules;
 using UnityEngine;
 
-namespace _Scripts.Ships
+namespace _Scripts.Ships.ShipControllers
 {
     [RequireComponent(typeof(TrainController))]
-    public class PlayerTrainController : MonoBehaviour
+    public class PlayerShipController : MonoBehaviour
     {
         private TrainController train;
 
@@ -19,6 +19,10 @@ namespace _Scripts.Ships
             // Make sure it’s marked as player train
             train.gameObject.name = "PlayerTrain";
             SetPlayerControl(true);
+            foreach (var mod in train.GetModules())
+            {
+                mod.SetFacing(FacingDirection.Right);
+            }
         }
 
         public void SetPlayerControl(bool isPlayerEnabled)

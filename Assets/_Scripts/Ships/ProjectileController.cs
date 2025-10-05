@@ -19,6 +19,7 @@ namespace _Scripts.Ships
         private float _timer;
         
         [Inject] private IPrefabPool prefabPool;
+        public bool IsPlayerProjectile =>  _isPlayer;
 
         public void Initialize(bool fromPlayer, float speed)
         {

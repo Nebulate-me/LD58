@@ -124,7 +124,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: ships
     originalName: 
-    pivot: {x: 0.5, y: -0.35714287}
+    pivot: {x: 0.51282054, y: -0.3}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,8 +132,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 42
-      height: 28
+      width: 39
+      height: 30
     spriteID: 8786dfff2554ac9469119544b5ad573b
     spriteBone: []
     spriteOutline: []
@@ -156,10 +156,10 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 3
-        y: 10
-        width: 42
-        height: 28
+        x: 4
+        y: 9
+        width: 39
+        height: 30
       spriteId: 8786dfff2554ac9469119544b5ad573b
     linkedCells: []
     parentIndex: -1

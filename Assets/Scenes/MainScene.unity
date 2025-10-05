@@ -884,8 +884,8 @@ MonoBehaviour:
   staticParent: {fileID: 1585925208}
   playerTrainPrefab: {fileID: 5860414525004747481, guid: cbde7c7e022297a4bae1efc80359000e, type: 3}
   taxStationPrefab: {fileID: 5514895927554541824, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
-  playerSpawnPos: {x: 0, y: 0}
-  aiSpawnPos: {x: 10, y: 0}
+  playerSpawnPos: {x: -7, y: 0, z: 0}
+  carSpacing: 1.5
 --- !u!114 &2010884066
 MonoBehaviour:
   m_ObjectHideFlags: 0

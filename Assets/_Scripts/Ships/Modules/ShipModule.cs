@@ -5,12 +5,21 @@ using Zenject;
 
 namespace _Scripts.Ships.Modules
 {
+    public enum FacingDirection
+    {
+        Left = -1, 
+        Right = 1
+    }
+
     [RequireComponent(typeof(Collider2D), typeof(Health))]
     public class ShipModule : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Health health;
         [SerializeField] private ModuleConfig moduleConfig;
+        [SerializeField] private FacingDirection facing = FacingDirection.Right;
+        
+        private SpriteRenderer[] sprites;
         
         [Inject] private IPrefabPool prefabPool;
 
@@ -20,6 +29,29 @@ namespace _Scripts.Ships.Modules
         public IHealth Health => health;
         public SpriteRenderer SpriteRenderer => spriteRenderer;
         public TrainController Train { get; private set; }
+        
+        public void SetFacing(FacingDirection dir)
+        {
+            facing = dir;
+            ApplyFacing();
+        }
+        
+        public void FlipFacing()
+        {
+            facing = facing == FacingDirection.Left ? FacingDirection.Right : FacingDirection.Left;
+            ApplyFacing();
+        }
+
+        private void ApplyFacing()
+        {
+            float sign = (float)facing;
+            foreach (var sr in sprites)
+            {
+                var scale = sr.transform.localScale;
+                scale.x = Mathf.Abs(scale.x) * sign;
+                sr.transform.localScale = scale;
+            }
+        }
 
         public void Repair(int repairValue = 0)
         {
@@ -30,6 +62,12 @@ namespace _Scripts.Ships.Modules
             }
             
             health.Heal(repairValue);
+        }
+        
+        private void Awake()
+        {
+            sprites = GetComponentsInChildren<SpriteRenderer>(true);
+            ApplyFacing();
         }
 
         private void Start()

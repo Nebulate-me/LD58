@@ -91,6 +91,17 @@ namespace _Scripts.Ships
                 }
             }
         }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out ShipModule cargo) &&
+                cargo.Type == ModuleType.Cargo && cargo.Train == null)
+            {
+                AddModule(cargo);
+                Debug.Log($"{name} picked up loose cargo {cargo.name}");
+            }
+        }
+
 
         public IReadOnlyList<ShipModule> GetModules() => modules;
 

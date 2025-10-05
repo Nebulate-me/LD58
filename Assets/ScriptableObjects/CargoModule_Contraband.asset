@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a914e3b64ed147e38dcd8a5d40c65d79, type: 3}
+  m_Name: CargoModule_Contraband
+  m_EditorClassIdentifier: 
+  moduleType: 2
+  locomotiveType: 0
+  cargoType: 4
+  prefab: {fileID: 7354222955467436449, guid: 97cb4f64232a6354f894b5a12e5ec1cd, type: 3}
+  maxModuleHealth: 1
+  score: 200

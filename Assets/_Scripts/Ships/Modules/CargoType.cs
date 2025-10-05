@@ -6,5 +6,6 @@
         Material = 1,
         Fuel = 2,
         Captive = 3,
+        Contraband = 4,
     }
 }

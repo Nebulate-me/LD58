@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 5983963731030755298}
   - component: {fileID: 2291999517718060991}
   - component: {fileID: 1474703363856401765}
-  - component: {fileID: 1256557732783230706}
-  - component: {fileID: 2999705310269744946}
+  - component: {fileID: -6795576658126688998}
+  - component: {fileID: 6243102858404612384}
   - component: {fileID: 17227665168938058}
   - component: {fileID: 4523560187712799301}
   - component: {fileID: 5921670999532740468}
   m_Layer: 0
-  m_Name: Cargo_Fuel
+  m_Name: Cargo_Contraband
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,8 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23140639fdea449a83fffba854737dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
---- !u!114 &1256557732783230706
+  maxHealth: 1
+--- !u!114 &-6795576658126688998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashDuration: 0.1
---- !u!114 &2999705310269744946
+--- !u!114 &6243102858404612384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,7 +135,7 @@ SpriteRenderer:
   m_SortingLayerID: 1770926255
   m_SortingLayer: 3
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1136312053, guid: 887126c250374034c924f4015a4f955f, type: 3}
+  m_Sprite: {fileID: 904514461, guid: 887126c250374034c924f4015a4f955f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -180,7 +180,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0107369125, y: 0.010736957}
+  m_Offset: {x: -0.0061324835, y: 0.025551982}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -190,7 +190,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.81451684, y: 0.52229273}
+  m_Size: {x: 0.8193718, y: 0.53965795}
   m_EdgeRadius: 0
 --- !u!50 &5921670999532740468
 Rigidbody2D:

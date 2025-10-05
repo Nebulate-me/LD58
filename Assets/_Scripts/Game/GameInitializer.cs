@@ -1,9 +1,13 @@
-﻿using _Scripts.Ships;
+﻿using System.Numerics;
+using _Scripts.Ships;
 using _Scripts.Ships.Modules;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
 using Utilities.Prefabs;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 namespace _Scripts.Game
 {
@@ -21,8 +25,8 @@ namespace _Scripts.Game
         [SerializeField] private GameObject taxStationPrefab;
 
         [Header("Spawn Settings")]
-        [SerializeField] private Vector2 playerSpawnPos = new(0, 0);
-        [SerializeField] private Vector2 aiSpawnPos = new(10, 0);
+        [SerializeField] private Vector3 playerSpawnPos = new(0, 0, 0);
+        [SerializeField] private float carSpacing = 1.5f;
 
         [Inject] private IPrefabPool prefabPool;
         [Inject] private IModuleRegistry moduleRegistry;
@@ -34,42 +38,26 @@ namespace _Scripts.Game
 
         private void Start()
         {
-            PlayerShip = SpawnTrain(playerTrainPrefab, isPlayer: true, playerSpawnPos);
+            SpawnPlayerTrain(playerTrainPrefab);
         }
-        
-        public TrainController SpawnTrain(GameObject trainPrefab, bool isPlayer, Vector2 spawnPos)
+
+        private void SpawnPlayerTrain(GameObject trainPrefab)
         {
-            // 1️⃣ Spawn base train object
-            var trainObj = prefabPool.Spawn(trainPrefab, spawnPos, Quaternion.identity, shipParent);
-            var shipController = trainObj.GetComponent<TrainController>();
+            if (!moduleRegistry.TryGetLocomotiveModuleConfig(LocomotiveType.Player, out var locomotiveConfig)) return;
+            if (!moduleRegistry.TryGetCargoModuleConfig(CargoType.Material, out var cargoConfig)) return;
+            if (!moduleRegistry.TryGetModuleConfig(ModuleType.Turret, out var cannonConfig)) return;
+            
+            PlayerShip = prefabPool.Spawn(trainPrefab, playerSpawnPos, Quaternion.identity).GetComponent<TrainController>();
+            PlayerShip.IsPlayerControlled = true;
 
-            if (moduleRegistry.TryGetLocomotiveModuleConfig(LocomotiveType.Player, out var locomotiveModule))
-            {
-                var loco = prefabPool.Spawn(locomotiveModule.Prefab, trainObj.transform);
-                shipController.AddModule(loco.GetComponent<ShipModule>());   
-            }
+            var cannon = prefabPool.Spawn(cannonConfig.Prefab, playerSpawnPos, Quaternion.identity, PlayerShip.transform);
+            var cargo  = prefabPool.Spawn(cargoConfig.Prefab,  playerSpawnPos + Vector3.right * carSpacing, Quaternion.identity, PlayerShip.transform);
+            var loco   = prefabPool.Spawn(locomotiveConfig.Prefab, playerSpawnPos + Vector3.right * carSpacing * 2f, Quaternion.identity, PlayerShip.transform);
 
-
-            if (moduleRegistry.TryGetCargoModuleConfig(CargoType.Material, out var cargoModule))
-            {
-                var cargo = prefabPool.Spawn(cargoModule.Prefab, trainObj.transform);
-                shipController.AddModule(cargo.GetComponent<ShipModule>());
-            }
-
-            if (moduleRegistry.TryGetModuleConfig(ModuleType.Turret, out var turretModule))
-            {
-                var turret = prefabPool.Spawn(turretModule.Prefab, trainObj.transform);
-                shipController.AddModule(turret.GetComponent<ShipModule>());
-            }
-
-            // 4️⃣ Player-specific logic
-            if (isPlayer)
-            {
-                var playerController = trainObj.GetComponent<PlayerTrainController>();
-                playerController.SetPlayerControl(true);
-            }
-
-            return shipController;
+            PlayerShip.AddModule(loco.GetComponent<ShipModule>());
+            PlayerShip.AddModule(cargo.GetComponent<ShipModule>());
+            PlayerShip.AddModule(cannon.GetComponent<ShipModule>());
         }
+
     }
 }
