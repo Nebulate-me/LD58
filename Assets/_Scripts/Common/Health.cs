@@ -35,6 +35,7 @@ namespace _Scripts.Common
             CurrentHealth -= amount;
             CurrentHealth = Mathf.Max(CurrentHealth, 0);
 
+            Debug.Log($"{name} took damage, HP: {CurrentHealth}/{maxHealth}");
             OnDamaged?.Invoke(this);
 
             if (CurrentHealth <= 0)

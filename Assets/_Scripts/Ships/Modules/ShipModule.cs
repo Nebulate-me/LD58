@@ -13,14 +13,13 @@ namespace _Scripts.Ships.Modules
         [SerializeField] private ModuleConfig moduleConfig;
         
         [Inject] private IPrefabPool prefabPool;
-        
-        private TrainController train;
 
         public ModuleType Type => moduleConfig.ModuleType;
         public bool RequiresRepair => health.CurrentHealth < moduleConfig.MaxModuleHealth;
         public int Score => Mathf.RoundToInt(moduleConfig.Score * health.CurrentHealth / (float) moduleConfig.MaxModuleHealth);
         public IHealth Health => health;
         public SpriteRenderer SpriteRenderer => spriteRenderer;
+        public TrainController Train { get; private set; }
 
         public void Repair(int repairValue = 0)
         {
@@ -40,14 +39,14 @@ namespace _Scripts.Ships.Modules
 
         public void AssignToTrain(TrainController t)
         {
-            train = t;
+            Train = t;
         }
 
         public void DestroyModule()
         {
-            if (train != null)
+            if (Train != null)
             {
-                train.RemoveModule(this);
+                Train.RemoveModule(this);
             }
             
             prefabPool.Despawn(gameObject);

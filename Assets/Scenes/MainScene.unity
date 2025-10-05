@@ -926,10 +926,10 @@ MonoBehaviour:
   levelMap: []
   generateRandomMap: 1
   generatedEventCount: 12
-  timeBetweenEvents: 15
+  timeBetweenEvents: 10
   traderEncounterPrefab: {fileID: 57854973891922840, guid: a068ac63cab45924d80e45073bfbb608, type: 3}
   asteroidFieldPrefab: {fileID: 1173076442190186374, guid: ecf3eeded476eab40ad3d7d33baedd39, type: 3}
-  pirateEncounterPrefab: {fileID: 0}
+  pirateEncounterPrefab: {fileID: 479110066528255229, guid: 16c6a97c6e0dbe74e9bb5f3ddc1c8e0b, type: 3}
   taxStationPrefab: {fileID: 5514895927554541824, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
   gameInitializer: {fileID: 2010884065}
 --- !u!1001 &6389537224375172186

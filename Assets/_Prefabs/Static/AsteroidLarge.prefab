@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -138251040, guid: 887126c250374034c924f4015a4f955f, type: 3}
+    - target: {fileID: 4924811759905442480, guid: 3117f661b3d714541a872e0c18682fa9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0180634c875bac54faa524c6d08c7ec5, type: 2}
     - target: {fileID: 5580800837796505310, guid: 3117f661b3d714541a872e0c18682fa9, type: 3}
       propertyPath: maxHealth
       value: 3
@@ -31,6 +35,10 @@ PrefabInstance:
     - target: {fileID: 6583630155174885228, guid: 3117f661b3d714541a872e0c18682fa9, type: 3}
       propertyPath: m_Name
       value: AsteroidLarge
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583630155174885228, guid: 3117f661b3d714541a872e0c18682fa9, type: 3}
+      propertyPath: m_TagString
+      value: Asteroid
       objectReference: {fileID: 0}
     - target: {fileID: 8735023934369401686, guid: 3117f661b3d714541a872e0c18682fa9, type: 3}
       propertyPath: m_LocalPosition.x

@@ -4,6 +4,6 @@ namespace _Scripts.Game
 {
     public interface IGameInitializer
     {
-        TrainController PlayerTrain { get; }
+        TrainController PlayerShip { get; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using _Scripts.Ships;
 
 namespace _Scripts.Game
 {
@@ -12,5 +13,6 @@ namespace _Scripts.Game
         event Action OnLevelCompleted;    
 
         IReadOnlyList<LevelEvent> GetLevelMap();
+        bool TryGetPlayer(out TrainController playerShip);
     }
 }

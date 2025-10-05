@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using _Scripts.Ships;
 using UnityEngine;
 using Utilities.Prefabs;
 using Zenject;
@@ -88,13 +90,54 @@ namespace _Scripts.Game
         {
             levelMap.Clear();
 
+            // --- Encounter weights ---
+            float asteroidWeight = 0.3f;
+            float traderWeight   = 0.25f;
+            float pirateWeight   = 0.35f;
+            float taxWeight      = 0.10f;
+
+            // total = 1.0, but we normalize just in case
+            float total = asteroidWeight + traderWeight + pirateWeight + taxWeight;
+
+            // --- Pre-determine tax station times (rarer & spaced further apart) ---
+            int taxStationsToPlace = Mathf.Clamp(Mathf.RoundToInt(generatedEventCount / 4f), 3, 4);
+            List<float> taxTimes = new();
+            float levelLength = generatedEventCount * timeBetweenEvents;
+            for (int i = 0; i < taxStationsToPlace; i++)
+            {
+                float t = (i + 1) / (float)(taxStationsToPlace + 1) * levelLength;
+                taxTimes.Add(t + UnityEngine.Random.Range(-10f, 10f));
+            }
+
+            // --- Main generation loop ---
             for (int i = 0; i < generatedEventCount; i++)
             {
                 float time = i * timeBetweenEvents + UnityEngine.Random.Range(-5f, 5f);
-                EncounterType type = (EncounterType)UnityEngine.Random.Range(1, 5); // 1..4
+
+                EncounterType type;
+
+                // Force tax station at certain pre-set positions
+                if (taxTimes.Any(t => Mathf.Abs(t - time) < timeBetweenEvents * 0.5f))
+                {
+                    type = EncounterType.TaxStation;
+                }
+                else
+                {
+                    // Weighted random draw
+                    float r = UnityEngine.Random.Range(0f, total);
+                    if (r < asteroidWeight) type = EncounterType.AsteroidField;
+                    else if (r < asteroidWeight + traderWeight) type = EncounterType.Trader;
+                    else if (r < asteroidWeight + traderWeight + pirateWeight) type = EncounterType.PirateAttack;
+                    else type = EncounterType.TaxStation;
+                }
+
                 levelMap.Add(new LevelEvent { time = Mathf.Max(0, time), encounter = type });
             }
+
+            // Sort events by time
+            levelMap.Sort((a, b) => a.time.CompareTo(b.time));
         }
+
 
         private void TriggerEncounter(LevelEvent levelEvent)
         {
@@ -115,5 +158,12 @@ namespace _Scripts.Game
         }
 
         public IReadOnlyList<LevelEvent> GetLevelMap() => levelMap;
+        public bool TryGetPlayer(out TrainController playerShip)
+        {
+            var playerShipExists = gameInitializer.PlayerShip != null;
+            playerShip = gameInitializer.PlayerShip;
+            
+            return playerShipExists;
+        }
     }
 }

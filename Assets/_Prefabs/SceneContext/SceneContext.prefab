@@ -47,8 +47,11 @@ MonoBehaviour:
   modules:
   - {fileID: 11400000, guid: f238a745be955f24e9f554c723c97df2, type: 2}
   - {fileID: 11400000, guid: 2ba93dac2c7719c4aa209894ce64d078, type: 2}
+  - {fileID: 11400000, guid: 9e659b5dfbf8c824bb56abfb98c44907, type: 2}
   - {fileID: 11400000, guid: 23c99e27dc10c814992881dc2ea76b71, type: 2}
   - {fileID: 11400000, guid: dd626be06f64cb14cb1dbf901f2a3686, type: 2}
+  - {fileID: 11400000, guid: bc24cc9c7d8b5b24f860395f36309844, type: 2}
+  - {fileID: 11400000, guid: 44fb06295d1e7de448edd3406321feef, type: 2}
 --- !u!1 &438648628034155259
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +330,7 @@ MonoBehaviour:
   scoreService: {fileID: 3214033119042019075}
   moduleRegistry: {fileID: 2354646824213066279}
   settingsProvider: {fileID: 479042147857044233}
+  gameFlowController: {fileID: 0}
 --- !u!1 &2764009579904583258
 GameObject:
   m_ObjectHideFlags: 0

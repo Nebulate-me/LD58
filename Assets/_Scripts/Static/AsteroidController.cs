@@ -13,6 +13,7 @@ namespace _Scripts.Static
         [Header("Stats")]
         [SerializeField] private float moveSpeed = 3f;
         [SerializeField] private Vector2 moveDir = Vector2.left;
+        public Health Health => health;
 
         private void Awake()
         {
