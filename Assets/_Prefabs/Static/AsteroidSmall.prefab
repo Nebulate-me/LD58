@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8735023934369401686}
   - component: {fileID: 5580800837796505310}
   - component: {fileID: 3069979564784700895}
+  - component: {fileID: 879342322597525888}
   - component: {fileID: 4924811759905442480}
   - component: {fileID: 1934222001666675102}
   - component: {fileID: 2697590969635244063}
@@ -50,7 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 3069979564784700895}
   rigidBody: {fileID: 2697590969635244063}
-  maxHealth: 1
   moveSpeed: 6
   moveDir: {x: -1, y: 0}
 --- !u!114 &3069979564784700895
@@ -66,6 +66,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+--- !u!114 &879342322597525888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6583630155174885228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7c56a5572c46aa9e68d77db62db5a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightMargin: 10
+  otherMargins: 3
 --- !u!212 &4924811759905442480
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Scripts.Common;
 using _Scripts.Game;
 using _Scripts.Ships.Modules;
 using _Scripts.Utils.AudioTool;
@@ -19,6 +20,7 @@ namespace _Scripts.DI
         [SerializeField] private PrefabPool prefabPool;
         [SerializeField] private ScoreService scoreService;
         [SerializeField] private ModuleRegistry moduleRegistry;
+        [SerializeField] private CommonSettingsProvider settingsProvider;
 
         [ShowInInspector, ReadOnly] private Camera uiCamera;
 
@@ -47,6 +49,9 @@ namespace _Scripts.DI
                 .AsSingle();
             Container.Bind<IModuleRegistry>()
                 .FromInstance(moduleRegistry)
+                .AsSingle();
+            Container.BindInterfacesTo<CommonSettingsProvider>()
+                .FromInstance(settingsProvider)
                 .AsSingle();
             
         }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using _Scripts.Ships.Modules;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,7 +13,7 @@ namespace _Scripts.Ships
         [SerializeField] private float spacing = 1.0f;
         [SerializeField] private float moveSpeed = 10f;
 
-        [ShowInInspector, ReadOnly] private List<ShipModule> cars = new List<ShipModule>();
+        [ShowInInspector, ReadOnly] private List<ShipModule> modules = new();
         [ShowInInspector, ReadOnly] private ShipModule head;
         [ShowInInspector, ReadOnly] private bool isPlayerControlled = false;
 
@@ -29,15 +31,15 @@ namespace _Scripts.Ships
             head.UpdateHead(isPlayerControlled);
 
             // 2. Update followers
-            for (int i = 1; i < cars.Count; i++)
+            for (int i = 1; i < modules.Count; i++)
             {
-                cars[i].Follow(cars[i - 1].transform.position, spacing, moveSpeed);
+                modules[i].Follow(modules[i - 1].transform.position, spacing, moveSpeed);
             }
         }
 
         public void AddModule(ShipModule newModule)
         {
-            cars.Add(newModule);
+            modules.Add(newModule);
             newModule.AssignToTrain(this);
 
             if (head == null && newModule.Type == ModuleType.Locomotive)
@@ -48,12 +50,12 @@ namespace _Scripts.Ships
 
         public void RemoveModule(ShipModule moduleToDelete)
         {
-            int index = cars.IndexOf(moduleToDelete);
+            int index = modules.IndexOf(moduleToDelete);
             if (index == -1) return;
 
             bool wasHead = (moduleToDelete == head);
 
-            cars.RemoveAt(index);
+            modules.RemoveAt(index);
 
             if (wasHead)
             {
@@ -65,7 +67,7 @@ namespace _Scripts.Ships
         {
             head = null;
 
-            foreach (var car in cars)
+            foreach (var car in modules)
             {
                 if (car.Type == ModuleType.Locomotive)
                 {
@@ -90,6 +92,8 @@ namespace _Scripts.Ships
             }
         }
 
-        public IReadOnlyList<ShipModule> GetModules() => cars;
+        public IReadOnlyList<ShipModule> GetModules() => modules;
+
+        public IReadOnlyList<SpriteRenderer> GetModuleSpriteRenderers() => modules.Select(module => module.SpriteRenderer).ToList();
     }
 }

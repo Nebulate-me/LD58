@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2473784771697458597}
   - component: {fileID: 6058596448252711263}
   - component: {fileID: -5493465444434166371}
+  - component: {fileID: 2580419660575920066}
   m_Layer: 0
   m_Name: Trader
   m_TagString: Untagged
@@ -59,7 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f8f275da74a4321be49e1b17b63e0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cargoPrefab: {fileID: 0}
   minCargoCount: 1
   maxCargoCount: 3
   moveSpeed: 3.5
@@ -67,3 +67,16 @@ MonoBehaviour:
   transferDelay: 1.5
   fleeSpeedMultiplier: 1.5
   despawnDistance: 40
+--- !u!114 &2580419660575920066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5860414525004747481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3746593567481089e558566db994df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainController: {fileID: 6058596448252711263}

@@ -8,6 +8,7 @@ namespace _Scripts.Ships.Modules
     [RequireComponent(typeof(Collider2D), typeof(Health))]
     public class ShipModule : MonoBehaviour
     {
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Health health;
         [SerializeField] private ModuleConfig moduleConfig;
         
@@ -19,6 +20,7 @@ namespace _Scripts.Ships.Modules
         public bool RequiresRepair => health.CurrentHealth < moduleConfig.MaxModuleHealth;
         public int Score => Mathf.RoundToInt(moduleConfig.Score * health.CurrentHealth / (float) moduleConfig.MaxModuleHealth);
         public IHealth Health => health;
+        public SpriteRenderer SpriteRenderer => spriteRenderer;
 
         public void Repair(int repairValue = 0)
         {
