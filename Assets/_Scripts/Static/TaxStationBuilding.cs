@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using _Scripts.Game;
 using _Scripts.Ships;
 using _Scripts.Ships.Modules;
@@ -11,10 +10,6 @@ namespace _Scripts.Static
     [RequireComponent(typeof(Collider2D))]
     public class TaxStationBuilding : MonoBehaviour
     {
-        [Header("Station Settings")]
-        [SerializeField] private int scorePerCargo = 100;
-        [SerializeField] private bool destroyAfterUse = false;
-        
         [Inject] private IScoreService scoreService;
 
         private void OnTriggerEnter2D(Collider2D other)

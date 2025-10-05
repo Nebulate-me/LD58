@@ -32,7 +32,7 @@ namespace _Scripts.Game
         private void UpdateUI()
         {
             if (scoreText != null)
-                scoreText.text = $"Score: {CurrentScore}";
+                scoreText.text = $"*{CurrentScore}*";
         }
     }
 }

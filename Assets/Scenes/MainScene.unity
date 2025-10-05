@@ -500,6 +500,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneContext
       objectReference: {fileID: 0}
+    - target: {fileID: 6615508697474527659, guid: 3e23e730c728f924aa2942ff699deeda, type: 3}
+      propertyPath: gameFlowController
+      value: 
+      objectReference: {fileID: 2010884066}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -894,11 +898,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4df6b4bfc5e47dcbf6a4bcdcd5e4e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToReachMaxDifficulty: 600
+  difficultyCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  levelMap: []
+  generateRandomMap: 1
+  generatedEventCount: 12
   timeBetweenEvents: 15
-  gameInitializer: {fileID: 2010884065}
   traderEncounterPrefab: {fileID: 57854973891922840, guid: a068ac63cab45924d80e45073bfbb608, type: 3}
   asteroidFieldPrefab: {fileID: 1173076442190186374, guid: ecf3eeded476eab40ad3d7d33baedd39, type: 3}
+  pirateEncounterPrefab: {fileID: 0}
   taxStationPrefab: {fileID: 5514895927554541824, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
+  gameInitializer: {fileID: 2010884065}
 --- !u!1001 &6389537224375172186
 PrefabInstance:
   m_ObjectHideFlags: 0

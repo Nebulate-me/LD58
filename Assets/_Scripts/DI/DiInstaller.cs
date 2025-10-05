@@ -21,6 +21,7 @@ namespace _Scripts.DI
         [SerializeField] private ScoreService scoreService;
         [SerializeField] private ModuleRegistry moduleRegistry;
         [SerializeField] private CommonSettingsProvider settingsProvider;
+        [SerializeField] private GameFlowController gameFlowController;
 
         [ShowInInspector, ReadOnly] private Camera uiCamera;
 
@@ -52,6 +53,9 @@ namespace _Scripts.DI
                 .AsSingle();
             Container.BindInterfacesTo<CommonSettingsProvider>()
                 .FromInstance(settingsProvider)
+                .AsSingle();
+            Container.BindInterfacesTo<GameFlowController>()
+                .FromInstance(gameFlowController)
                 .AsSingle();
             
         }

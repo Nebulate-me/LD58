@@ -34,5 +34,10 @@ namespace _Scripts.Static
                 health.Damage(health.CurrentHealth);
             }
         }
+
+        public void SetDirection(Vector2 dirNormalized)
+        {
+            moveDir = dirNormalized;
+        }
     }
 }

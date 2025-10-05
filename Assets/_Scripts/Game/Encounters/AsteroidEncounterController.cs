@@ -13,14 +13,16 @@ namespace _Scripts.Game.Encounters
         [SerializeField] private GameObject smallAsteroidPrefab;
         [SerializeField] private GameObject largeAsteroidPrefab;
 
-        [Header("Spawn Settings")]
-        [SerializeField, Range(0, 1)] private float largeAsteroidChance = 0.25f;
-        [SerializeField] private float spawnRadius = 15f;
-        [SerializeField] private float spawnInterval = 2f;
-        [SerializeField] private int maxActiveAsteroids = 12;
+        [Header("Base Settings")]
+        [SerializeField] private float baseSpawnInterval = 2f;
+        [SerializeField] private int baseMaxActiveAsteroids = 10;
+        [SerializeField] private float baseLargeAsteroidChance = 0.25f;
+        [SerializeField] private float diagonalChance = 0.15f; // 15% fly diagonally
+        [SerializeField] private float diagonalAngleRange = 25f; // degrees from horizontal
 
         [Inject] private IPrefabPool prefabPool;
         [Inject] private IRandomService randomService;
+        [Inject] private IGameFlowController flowController;
 
         private float spawnTimer;
         private int currentAsteroids;
@@ -37,7 +39,7 @@ namespace _Scripts.Game.Encounters
             spawnTimer = 0;
         }
 
-        private void OnAsteroidDestroyed(AsteroidDestroyedSignal asteroidDestroyedSignal)
+        private void OnAsteroidDestroyed(AsteroidDestroyedSignal _)
         {
             currentAsteroids = Mathf.Max(0, currentAsteroids - 1);
         }
@@ -46,43 +48,47 @@ namespace _Scripts.Game.Encounters
         {
             spawnTimer += Time.deltaTime;
 
+            float diff = Mathf.Clamp01(flowController.CurrentDifficulty);
+
+            // scale difficulty
+            float spawnInterval = Mathf.Lerp(baseSpawnInterval, 0.8f, diff);
+            int maxActiveAsteroids = Mathf.RoundToInt(Mathf.Lerp(baseMaxActiveAsteroids, baseMaxActiveAsteroids * 2f, diff));
+            float largeAsteroidChance = Mathf.Lerp(baseLargeAsteroidChance, 0.5f, diff);
+
             if (spawnTimer >= spawnInterval && currentAsteroids < maxActiveAsteroids)
             {
                 spawnTimer = 0f;
-                SpawnAsteroid();
+                SpawnAsteroid(largeAsteroidChance);
             }
         }
 
-        private void SpawnAsteroid()
+        private void SpawnAsteroid(float largeChance)
         {
-            var spawnLarge = randomService.Float(0, 1) < largeAsteroidChance;
+            bool spawnLarge = randomService.Float(0, 1) < largeChance;
             var prefab = spawnLarge ? largeAsteroidPrefab : smallAsteroidPrefab;
 
             if (prefab == null)
             {
-                Debug.LogWarning("AsteroidSpawner missing prefab reference!");
+                Debug.LogWarning("AsteroidEncounter missing prefab!");
                 return;
             }
 
-            var spawnPos = (Vector2) transform.position + new Vector2(0, randomService.Float(-spawnRadius, spawnRadius));
+            var spawnY = randomService.Float(-10f, 10f);
+            var spawnPos = (Vector2)transform.position + new Vector2(0, spawnY);
             var asteroidObj = prefabPool.Spawn(prefab, spawnPos, Quaternion.identity, transform);
 
-            var asteroid = asteroidObj.GetComponent<AsteroidController>();
-            if (asteroid == null)
+            // direction logic
+            Vector2 dir = Vector2.left;
+            if (randomService.Float(0, 1) < diagonalChance)
             {
-                Debug.LogWarning("Asteroid prefab missing AsteroidController component!");
-                return;
+                float angle = randomService.Float(-diagonalAngleRange, diagonalAngleRange);
+                dir = Quaternion.Euler(0, 0, angle) * dir;
             }
 
-            /*// Assign type-specific stats
-            if (spawnLarge)
+            if (asteroidObj.TryGetComponent(out AsteroidController controller))
             {
-                asteroid.Initialize(largeAsteroidHealth, largeAsteroidSpeed, this);
+                controller.SetDirection(dir.normalized);
             }
-            else
-            {
-                asteroid.Initialize(smallAsteroidHealth, smallAsteroidSpeed, this);
-            }*/
 
             currentAsteroids++;
         }
