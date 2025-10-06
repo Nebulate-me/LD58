@@ -75,9 +75,22 @@ namespace _Scripts.Ships.Modules
             health.SetUp(moduleConfig.MaxModuleHealth);
         }
 
-        public void AssignToTrain(TrainController t)
+        public void AttachToShip(TrainController ship)
         {
-            Train = t;
+            if (Train != null) return;
+            
+            transform.SetParent(ship.transform);
+            Train = ship;
+            Train.AddModule(this);
+        }
+        
+        public void DetachFromShip()
+        {
+            if (Train == null) return;
+            
+            Train.RemoveModule(this);
+            transform.SetParent(null);
+            Train = null;
         }
 
         public void DestroyModule()
@@ -111,12 +124,6 @@ namespace _Scripts.Ships.Modules
                 Vector3 newPos = targetPos - dir.normalized * spacing;
                 transform.position = Vector3.MoveTowards(transform.position, newPos, moveSpeed * Time.deltaTime);
             }
-        }
-
-        public void Detach()
-        {
-            transform.SetParent(null);
-            Train = null;
         }
     }
 }

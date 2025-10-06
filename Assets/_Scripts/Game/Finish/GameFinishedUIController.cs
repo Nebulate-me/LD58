@@ -53,13 +53,13 @@ namespace _Scripts.Game.Finish
 
             rootGroup.gameObject.SetActive(true);
             rootGroup.alpha = 1;
-            // background.color = signal.Success ? winColor : loseColor;
 
-            headerText.text = signal.Success ? "🎉 Congratulations!" : "💀 Game Over";
+            headerText.text = signal.Success ? "Congratulations!" : "Game Over";
+            headerText.color = signal.Success ? winColor : loseColor;
             scoreText.text = $"Score: {signal.FinalScore}";
             ratingText.text = GetRating(signal.FinalScore);
 
-            Time.timeScale = 0f; // pause
+            Time.timeScale = 0f;
         }
 
         private string GetRating(int score)

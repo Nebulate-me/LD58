@@ -21,19 +21,17 @@ namespace _Scripts.Game.Encounters
         public void OnSpawn()
         {
             if (!moduleRegistry.TryGetLocomotiveModuleConfig(LocomotiveType.Trader, out var locoConfig)) return;
-            if (!gameFlow.TryGetPlayer(out var playerTrain)) return;
+            if (!gameFlow.TryGetPlayer(out var playerShip)) return;
 
             // spawn 2 traders on opposite sides
             bool firstLeft = Random.value > 0.5f;
             for (int i = 0; i < 2; i++)
             {
                 float side = (i == 0 ? (firstLeft ? -1 : 1) : (firstLeft ? 1 : -1));
-                Vector3 pos = playerTrain.transform.position +
+                Vector3 pos = playerShip.transform.position +
                               new Vector3(10f * side, Random.Range(-4f, 4f), 0);
                 var traderObj = pool.Spawn(traderTrainPrefab, pos, Quaternion.identity, transform);
                 var train = traderObj.GetComponent<TrainController>();
-                var traderAI = traderObj.GetComponent<TraderShipController>();
-                traderAI.Initialize(playerTrain.transform);
 
                 var modules = new List<ModuleConfig> {locoConfig};
 

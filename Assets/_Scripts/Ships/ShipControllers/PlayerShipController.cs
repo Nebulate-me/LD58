@@ -27,25 +27,5 @@ namespace _Scripts.Ships.ShipControllers
                     System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.SetValue(train, isPlayerEnabled);
         }
-
-        public void AddModule(ShipModule module)
-        {
-            train.AddModule(module);
-        }
-
-        public void RemoveModule(ShipModule module)
-        {
-            train.RemoveModule(module);
-        }
-
-        // 🔫 Extend here for shooting, special actions, etc.
-        void Update()
-        {
-            // Optionally: add shooting or ability controls
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("Player fires weapon!");
-            }
-        }
     }
 }

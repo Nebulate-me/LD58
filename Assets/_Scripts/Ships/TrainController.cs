@@ -50,7 +50,6 @@ namespace _Scripts.Ships
         public void AddModule(ShipModule newModule)
         {
             modules.Add(newModule);
-            newModule.AssignToTrain(this);
 
             if (head == null && newModule.Type == ModuleType.Locomotive)
             {
@@ -88,6 +87,11 @@ namespace _Scripts.Ships
 
             if (head == null)
             {
+                foreach (var shipModule in GetModules())
+                {
+                    shipModule.DetachFromShip();
+                }
+
                 // 🚨 No locomotives left
                 if (isPlayerControlled)
                 {
@@ -106,9 +110,10 @@ namespace _Scripts.Ships
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent(out ShipModule cargo) &&
-                cargo.Type == ModuleType.Cargo && cargo.Train == null)
+                cargo.Type == ModuleType.Cargo && 
+                cargo.Train == null)
             {
-                AddModule(cargo);
+                cargo.AttachToShip(this);
                 Debug.Log($"{name} picked up loose cargo {cargo.name}");
             }
         }
@@ -125,8 +130,8 @@ namespace _Scripts.Ships
                     .GetComponent<ShipModule>();
                 currentModulePosition += Vector3.right * positionIncrement;
                 module.SetFacing(shipConfiguration.Facing);
-                
-                AddModule(module);
+
+                module.AttachToShip(this);
             }
         }
 
