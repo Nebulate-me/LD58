@@ -44,6 +44,7 @@ namespace _Scripts.Static
             
             foreach (var shipModule in modulesToDestroy)
             {
+                shipModule.Sell(shipModule.Score);
                 shipModule.DestroyModule();
             }
         }

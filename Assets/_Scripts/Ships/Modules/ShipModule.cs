@@ -125,5 +125,11 @@ namespace _Scripts.Ships.Modules
                 transform.position = Vector3.MoveTowards(transform.position, newPos, moveSpeed * Time.deltaTime);
             }
         }
+
+        public void Sell(int pointsEarned)
+        {
+            if (TryGetComponent(out ModuleVFXController vfx))
+                vfx.OnSold(pointsEarned);
+        }
     }
 }

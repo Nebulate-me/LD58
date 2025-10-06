@@ -1,5 +1,4 @@
-﻿using _Scripts.Ships.Modules;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Scripts.Ships.ShipControllers
 {
@@ -17,15 +16,7 @@ namespace _Scripts.Ships.ShipControllers
         void Start()
         {
             train.gameObject.name = "PlayerTrain";
-            SetPlayerControl(true);
-        }
-
-        public void SetPlayerControl(bool isPlayerEnabled)
-        {
-            train.GetType()
-                .GetField("isPlayerControlled", 
-                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.SetValue(train, isPlayerEnabled);
+            train.IsPlayerControlled = true;
         }
     }
 }

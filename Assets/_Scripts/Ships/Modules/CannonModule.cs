@@ -1,50 +1,58 @@
 ﻿using UnityEngine;
-using _Scripts.Static;
+using Utilities;
 using Utilities.Prefabs;
 using Zenject;
 
 namespace _Scripts.Ships.Modules
 {
     [RequireComponent(typeof(ShipModule))]
-    public class CannonModule : MonoBehaviour
+    public class CannonModule : MonoBehaviour, IPoolableResource
     {
         [Header("References")]
+        [SerializeField] private ShipModule shipModule;
+        [SerializeField] private Transform turret;
         [SerializeField] private Transform firePoint;
+        
+        [Header("Prefabs")]
         [SerializeField] private GameObject playerProjectilePrefab;
         [SerializeField] private GameObject enemyProjectilePrefab;
 
         [Header("Stats")]
         [SerializeField] private float fireCooldown = 0.6f;
         [SerializeField] private float projectileSpeed = 8f;
-        [SerializeField] private bool eightDirectional = false;
 
         [Inject] private IPrefabPool prefabPool;
+        
+        private float cooldownTimer;
+        private Vector2 facing = Vector2.right;
 
-        private ShipModule _shipModule;
-        private float _cooldownTimer;
-        private Vector2 _facing = Vector2.right;
+        private bool IsPlayer => shipModule.Train && shipModule.Train.IsPlayerControlled;
 
-        private bool _isPlayer => _shipModule.Train && _shipModule.Train.IsPlayerControlled;
-
-        private void Awake() => _shipModule = GetComponent<ShipModule>();
-
-        public void SetFacing(Vector2 dir)
+        private void Awake() => shipModule = GetComponent<ShipModule>();
+        
+        public void OnSpawn()
         {
-            if (dir.sqrMagnitude < 0.01f) return;
-            _facing = eightDirectional ? SnapToEight(dir) : dir.normalized;
-            float z = Mathf.Atan2(_facing.y, _facing.x) * Mathf.Rad2Deg;
-            firePoint.localRotation = Quaternion.Euler(0, 0, z);
+            
+        }
+
+        public void OnDespawn()
+        {
+            
         }
 
         private void Update()
         {
-            // Skip firing if train destroyed or no locomotive
-            if (_shipModule.Train == null || !_shipModule.Train.HasLocomotive)
+            if (shipModule.Train == null || !shipModule.Train.HasLocomotive)
                 return;
+            
+            cooldownTimer -= Time.deltaTime;
+            
+            facing = IsPlayer ? Vector2.right : Vector2.left;
+            float angle = Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg;
+            Quaternion turretRotation = Quaternion.Euler(0, 0, angle);
+            turret.SetPositionAndRotation(turret.position, turretRotation);
 
-            _cooldownTimer -= Time.deltaTime;
-
-            if (_isPlayer)
+            if (IsPlayer)
             {
                 if (Input.GetKey(KeyCode.Space))
                     TryFire();
@@ -57,29 +65,14 @@ namespace _Scripts.Ships.Modules
 
         private void TryFire()
         {
-            if (_cooldownTimer > 0f || firePoint == null) return;
-            _cooldownTimer = fireCooldown;
+            if (cooldownTimer > 0f || firePoint == null) return;
+            cooldownTimer = fireCooldown;
 
-            var prefab = _isPlayer ? playerProjectilePrefab : enemyProjectilePrefab;
+            var prefab = IsPlayer ? playerProjectilePrefab : enemyProjectilePrefab;
             var proj = prefabPool.Spawn(prefab, firePoint.position, Quaternion.Euler(0, 0,
-                Mathf.Atan2(_facing.y, _facing.x) * Mathf.Rad2Deg));
+                Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg));
             if (proj.TryGetComponent(out ProjectileController projectile))
-                projectile.Initialize(_isPlayer, projectileSpeed);
-        }
-
-        private static Vector2 SnapToEight(Vector2 dir)
-        {
-            Vector2[] dirs = {
-                Vector2.right, Vector2.left, Vector2.up, Vector2.down,
-                new Vector2(1,1).normalized, new Vector2(-1,1).normalized, new Vector2(1,-1).normalized, new Vector2(-1,-1).normalized
-            };
-            float best = 999f; Vector2 bestDir = Vector2.right;
-            foreach (var d in dirs)
-            {
-                float a = Vector2.Angle(d, dir);
-                if (a < best) { best = a; bestDir = d; }
-            }
-            return bestDir;
+                projectile.Initialize(IsPlayer, projectileSpeed);
         }
     }
 }

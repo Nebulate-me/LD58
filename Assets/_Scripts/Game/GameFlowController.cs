@@ -105,6 +105,14 @@ namespace _Scripts.Game
 
             foreach (float t in taxTimes)
                 AddEventSafe(t, EncounterType.TaxStation);
+            
+            // --- 1️⃣ Guaranteed early Pirate encounter after first Tax Station ---
+            if (taxTimes.Count > 0)
+            {
+                float firstTax = taxTimes[0];
+                float pirateAfterTax = firstTax + Mathf.Max(minEventSpacing, 5f);
+                AddEventSafe(pirateAfterTax, EncounterType.PirateAttack);
+            }
 
             // --- 2️⃣ Fill gaps between tax stations with Trader & Pirate encounters ---
             for (var i = 0; i < taxTimes.Count - 1; i++)
@@ -150,11 +158,40 @@ namespace _Scripts.Game
 // --- Helper: safely adds an event respecting minimum spacing ---
         private void AddEventSafe(float time, EncounterType type)
         {
-            foreach (var ev in levelMap)
-                if (Mathf.Abs(ev.time - time) < minEventSpacing)
-                    return; // too close, skip
+            if (levelMap.Count == 0)
+            {
+                levelMap.Add(new LevelEvent { time = time, encounter = type });
+                return;
+            }
 
-            levelMap.Add(new LevelEvent {time = time, encounter = type});
+            // Sort first to check nearest neighbors
+            levelMap.Sort((a, b) => a.time.CompareTo(b.time));
+
+            bool adjusted;
+            int guard = 0;
+            do
+            {
+                adjusted = false;
+                foreach (var ev in levelMap)
+                {
+                    if (Mathf.Abs(ev.time - time) < minEventSpacing)
+                    {
+                        // too close — move forward slightly
+                        time = ev.time + minEventSpacing;
+                        adjusted = true;
+                    }
+                }
+
+                // prevent infinite loops
+                guard++;
+                if (guard > 50) break;
+
+            } while (adjusted && time < totalDuration - minEventSpacing);
+
+            // clamp to duration limit
+            time = Mathf.Min(time, totalDuration - minEventSpacing);
+
+            levelMap.Add(new LevelEvent { time = time, encounter = type });
         }
 
 // --- Helper: returns random time respecting minEventSpacing margins ---

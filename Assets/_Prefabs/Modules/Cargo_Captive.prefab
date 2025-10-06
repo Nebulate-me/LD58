@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2291999517718060991}
   - component: {fileID: 1474703363856401765}
   - component: {fileID: -6795576658126688998}
+  - component: {fileID: 7090527363185647791}
   - component: {fileID: -4223042071427376253}
   - component: {fileID: 17227665168938058}
   - component: {fileID: 4523560187712799301}
@@ -53,6 +54,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 17227665168938058}
   health: {fileID: 1474703363856401765}
   moduleConfig: {fileID: 11400000, guid: 23c99e27dc10c814992881dc2ea76b71, type: 2}
+  facing: 1
 --- !u!114 &1474703363856401765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +81,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashDuration: 0.1
+--- !u!114 &7090527363185647791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7354222955467436449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f033ff6742f04d9588e9e88f25be12ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionVFX: {fileID: 0}
+  saleVFX: {fileID: 0}
+  floatingTextPrefab: {fileID: 4454329636547052727, guid: 53c0c9783c0cb264bad9841ca6f385b3, type: 3}
 --- !u!114 &-4223042071427376253
 MonoBehaviour:
   m_ObjectHideFlags: 0

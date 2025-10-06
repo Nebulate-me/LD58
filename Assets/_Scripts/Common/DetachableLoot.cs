@@ -23,10 +23,8 @@ namespace _Scripts.Common
             // detach from train so the module stops following
             if (_module.Train != null)
             {
-                _module.Train.RemoveModule(_module);
+                _module.DetachFromShip();
             }
-
-            transform.SetParent(null, true);
 
             // make sure it can float and persist
             if (!TryGetComponent(out Rigidbody2D rb))

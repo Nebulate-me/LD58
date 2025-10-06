@@ -506,7 +506,10 @@ PrefabInstance:
       objectReference: {fileID: 2010884066}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2178921146081422122, guid: 3e23e730c728f924aa2942ff699deeda, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1830045635}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e23e730c728f924aa2942ff699deeda, type: 3}
 --- !u!1 &832575517
@@ -774,6 +777,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4381783419962549665, guid: acbf57ebf30f7754caf4936fd0232b73, type: 3}
   m_PrefabInstance: {fileID: 6389537224375172186}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1830045634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1830045635}
+  m_Layer: 0
+  m_Name: VFXService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1830045635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830045634}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1977629171}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1944697137 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3979165810866533590, guid: acbf57ebf30f7754caf4936fd0232b73, type: 3}
@@ -840,6 +874,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4381783419962549665, guid: acbf57ebf30f7754caf4936fd0232b73, type: 3}
   m_PrefabInstance: {fileID: 1952183604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1977629171 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2178921146081422122, guid: 3e23e730c728f924aa2942ff699deeda, type: 3}
+  m_PrefabInstance: {fileID: 733143486}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2010884063
 GameObject:
