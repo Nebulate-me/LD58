@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Scripts.Game.Finish;
 using _Scripts.Ships;
+using Signals;
 using UnityEngine;
 using Utilities.Prefabs;
 using Zenject;
@@ -37,6 +39,7 @@ namespace _Scripts.Game
         [SerializeField] private GameInitializer gameInitializer;
 
         [Inject] private IPrefabPool prefabPool;
+        [Inject] private IScoreService scoreService;
 
         private float elapsedTime;
         private int nextEventIndex;
@@ -77,12 +80,13 @@ namespace _Scripts.Game
                 nextEventIndex++;
             }
 
-            // Win condition
             if (!levelCompletedRaised && IsLevelComplete)
             {
                 levelCompletedRaised = true;
                 OnLevelCompleted?.Invoke();
-                Debug.Log("🏁 Level completed!");
+                
+                SignalsHub.DispatchAsync(new GameFinishedSignal(true, scoreService.CurrentScore));
+                Debug.Log("🏁 Level completed — Game Finished (Win)");
             }
         }
 

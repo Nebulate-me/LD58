@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using _Scripts.Common;
+using _Scripts.Game;
+using _Scripts.Game.Finish;
 using _Scripts.Ships.Modules;
+using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utilities.Prefabs;
@@ -22,6 +25,7 @@ namespace _Scripts.Ships
         [Inject] private IPrefabPool prefabPool;
         [Inject] private ICommonSettingsProvider commonSettingsProvider;
         [Inject] private IModuleRegistry moduleRegistry;
+        [Inject] private IScoreService scoreService;
 
         public bool IsPlayerControlled
         {
@@ -85,8 +89,9 @@ namespace _Scripts.Ships
                 // 🚨 No locomotives left
                 if (isPlayerControlled)
                 {
-                    Debug.Log("Game Over – Player lost all locomotives!");
-                    // TODO: trigger game over
+                    var score = scoreService.CurrentScore;
+                    SignalsHub.DispatchAsync(new GameFinishedSignal(false, score));
+                    Debug.Log("💀 Player train destroyed — Game Over");
                 }
                 else
                 {
@@ -117,6 +122,7 @@ namespace _Scripts.Ships
                     .Spawn(moduleConfig.Prefab, currentModulePosition, Quaternion.identity, transform)
                     .GetComponent<ShipModule>();
                 currentModulePosition += Vector3.right * positionIncrement;
+                module.SetFacing(shipConfiguration.Facing);
                 
                 AddModule(module);
             }

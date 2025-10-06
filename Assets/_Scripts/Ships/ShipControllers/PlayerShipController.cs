@@ -16,13 +16,8 @@ namespace _Scripts.Ships.ShipControllers
 
         void Start()
         {
-            // Make sure it’s marked as player train
             train.gameObject.name = "PlayerTrain";
             SetPlayerControl(true);
-            foreach (var mod in train.GetModules())
-            {
-                mod.SetFacing(FacingDirection.Right);
-            }
         }
 
         public void SetPlayerControl(bool isPlayerEnabled)

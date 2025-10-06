@@ -6,7 +6,7 @@ using Utilities.Prefabs;
 namespace _Scripts.Ships.ShipControllers
 {
     [RequireComponent(typeof(TrainController))]
-    public class PirateShipController : MonoBehaviour, IPoolableResource
+    public class PirateShipController : MonoBehaviour
     {
         [Header("AI Settings")]
         [SerializeField] private float moveSpeed = 2.5f;
@@ -69,19 +69,6 @@ namespace _Scripts.Ships.ShipControllers
             }
 
             transform.Translate(moveDir * moveSpeed * Time.deltaTime, Space.World);
-        }
-
-        public void OnSpawn()
-        {
-            foreach (var mod in _train.GetModules())
-            {
-                mod.SetFacing(FacingDirection.Left);
-            }
-        }
-
-        public void OnDespawn()
-        {
-           
         }
     }
 }

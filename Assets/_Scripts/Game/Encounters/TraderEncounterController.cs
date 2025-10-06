@@ -21,7 +21,6 @@ namespace _Scripts.Game.Encounters
         public void OnSpawn()
         {
             if (!moduleRegistry.TryGetLocomotiveModuleConfig(LocomotiveType.Trader, out var locoConfig)) return;
-            if (!moduleRegistry.TryGetModuleConfig(ModuleType.Cargo, out var cargoConfig)) return;
             if (!gameFlow.TryGetPlayer(out var playerTrain)) return;
 
             // spawn 2 traders on opposite sides
@@ -36,17 +35,24 @@ namespace _Scripts.Game.Encounters
                 var traderAI = traderObj.GetComponent<TraderShipController>();
                 traderAI.Initialize(playerTrain.transform);
 
-                // locomotive
-                var loco = pool.Spawn(locoConfig.Prefab, traderObj.transform);
-                train.AddModule(loco.GetComponent<ShipModule>());
+                var modules = new List<ModuleConfig> {locoConfig};
 
                 // random 1–3 cargo cars
-                int cargos = Random.Range(1, 4);
-                for (int c = 0; c < cargos; c++)
+                var cargoModuleCount = Random.Range(1, 4);
+                for (var c = 0; c < cargoModuleCount; c++)
                 {
-                    var cargo = pool.Spawn(cargoConfig.Prefab, traderObj.transform);
-                    train.AddModule(cargo.GetComponent<ShipModule>());
+                    var cargoType = (CargoType)Random.Range((int)CargoType.Material, (int) CargoType.Contraband);
+                    if (moduleRegistry.TryGetCargoModuleConfig(cargoType, out var cargoConfig))
+                    {
+                        modules.Add(cargoConfig);   
+                    }
                 }
+                
+                train.AssembleShip(new ShipConfiguration
+                {
+                    Facing = FacingDirection.Left,
+                    Modules = modules
+                }, pos);
 
                 traders.Add(traderObj);
             }

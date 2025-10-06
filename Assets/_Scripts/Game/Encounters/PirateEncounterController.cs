@@ -1,4 +1,5 @@
-﻿using _Scripts.Ships;
+﻿using System.Collections.Generic;
+using _Scripts.Ships;
 using _Scripts.Ships.Modules;
 using _Scripts.Ships.ShipControllers;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace _Scripts.Game.Encounters
     public class PirateEncounterController : MonoBehaviour, IPoolableResource
     {
         [SerializeField] private GameObject pirateTrainPrefab;
+        [SerializeField] private Vector3 baseSpawnPosition = new(6f, 0f, 0f);
 
         [Inject] private IPrefabPool pool;
         [Inject] private IGameFlowController gameFlowController;
@@ -21,19 +23,19 @@ namespace _Scripts.Game.Encounters
             if (!moduleRegistry.TryGetModuleConfig(ModuleType.Turret, out var cannonModuleConfig)) return;
             if (!gameFlowController.TryGetPlayer(out var playerShip)) return;
             
-            int pirates = Mathf.RoundToInt(Mathf.Lerp(1, 3, gameFlowController.CurrentDifficulty));
-            for (var i = 0; i < pirates; i++)
+            var pirateCount = Mathf.RoundToInt(Mathf.Lerp(1, 3, gameFlowController.CurrentDifficulty));
+            for (var i = 0; i < pirateCount; i++)
             {
-                var trainObj = pool.Spawn(pirateTrainPrefab, transform.position + new Vector3(0, i * 3f, 0), Quaternion.identity, transform);
+                var spawnPosition = baseSpawnPosition + new Vector3(0, i * 3f, 0);
+                var trainObj = pool.Spawn(pirateTrainPrefab, spawnPosition, Quaternion.identity, transform);
                 var train = trainObj.GetComponent<TrainController>();
                 var pirateTrain = trainObj.GetComponent<PirateShipController>();
                 pirateTrain.Initialize(playerShip.transform);
-                
-                var locomotive = pool.Spawn(locomotiveModuleConfig.Prefab, trainObj.transform);
-                train.AddModule(locomotive.GetComponent<ShipModule>());
-                
-                var cannon = pool.Spawn(cannonModuleConfig.Prefab, trainObj.transform);
-                train.AddModule(cannon.GetComponent<ShipModule>());
+                train.AssembleShip(new ShipConfiguration
+                {
+                    Facing = FacingDirection.Left,
+                    Modules = new List<ModuleConfig> {locomotiveModuleConfig, cannonModuleConfig }
+                }, spawnPosition);
             }
         }
 

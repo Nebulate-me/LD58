@@ -6,7 +6,7 @@ using Utilities.Prefabs;
 namespace _Scripts.Ships.ShipControllers
 {
     [RequireComponent(typeof(TrainController))]
-    public class TraderShipController : MonoBehaviour, IPoolableResource
+    public class TraderShipController : MonoBehaviour
     {
         [SerializeField] private float moveSpeed = 3f;
         [SerializeField] private float dodgeRadius = 3f;
@@ -48,19 +48,6 @@ namespace _Scripts.Ships.ShipControllers
                 moveDir = (loose.transform.position - transform.position).normalized;
 
             transform.Translate(moveDir * moveSpeed * Time.deltaTime, Space.World);
-        }
-
-        public void OnSpawn()
-        {
-            foreach (var mod in _train.GetModules())
-            {
-                mod.SetFacing(FacingDirection.Left);
-            }
-        }
-
-        public void OnDespawn()
-        {
-           
         }
     }
 }
