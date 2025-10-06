@@ -4,5 +4,9 @@
     {
         None = 0,
         TestSound = 1,
+        Cash = 2,
+        CannonShot = 3,
+        Explosion = 4,
+        Tax = 5,
     }
 }

@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+  playExplosionSoundOnDeath: 0
 --- !u!114 &879342322597525888
 MonoBehaviour:
   m_ObjectHideFlags: 0

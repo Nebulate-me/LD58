@@ -34,7 +34,7 @@ namespace _Scripts.Game
         
         public TrainController PlayerShip { get; private set; }
         public Vector2 PlayerPosition => PlayerShip != null 
-            ? PlayerShip.transform.position
+            ? PlayerShip.Head.transform.position
             : new Vector2(playerSpawnPos.x, playerSpawnPos.y);
 
         private void Start()

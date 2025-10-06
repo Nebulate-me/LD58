@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using _Scripts.Utils.AudioTool.Sounds;
+using Signals;
+using UnityEngine;
 using Utilities.Prefabs;
 using Zenject;
 
@@ -71,7 +73,10 @@ namespace _Scripts.Ships.Modules
             var proj = prefabPool.Spawn(prefab, firePoint.position, Quaternion.Euler(0, 0,
                 Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg));
             if (proj.TryGetComponent(out ProjectileController projectile))
+            {
+                SignalsHub.DispatchAsync(new PlaySoundSignal {Name = SoundName.CannonShot});
                 projectile.Initialize(IsPlayer, projectileSpeed);
+            }
         }
     }
 }

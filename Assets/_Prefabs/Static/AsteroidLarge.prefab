@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3069979564784700895, guid: 3117f661b3d714541a872e0c18682fa9, type: 3}
+      propertyPath: playExplosionSoundOnDeath
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4924811759905442480, guid: 3117f661b3d714541a872e0c18682fa9, type: 3}
       propertyPath: m_Sprite
       value: 

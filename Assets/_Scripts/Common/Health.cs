@@ -1,4 +1,6 @@
 ﻿using System;
+using _Scripts.Utils.AudioTool.Sounds;
+using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utilities.Prefabs;
@@ -9,6 +11,7 @@ namespace _Scripts.Common
     public class Health : MonoBehaviour, IHealth, IPoolableResource
     {
         [SerializeField] private int maxHealth = 3;
+        [SerializeField] private bool playExplosionSoundOnDeath = true;
 
         public int MaxHealth => maxHealth;
         [ShowInInspector, ReadOnly] public int CurrentHealth { get; private set; }
@@ -59,6 +62,7 @@ namespace _Scripts.Common
             if (IsDead) return;
             IsDead = true;
             prefabPool.Despawn(gameObject);
+            if (playExplosionSoundOnDeath) SignalsHub.DispatchAsync(new PlaySoundSignal {Name = SoundName.Explosion});
             OnDeath?.Invoke(this);
         }
 

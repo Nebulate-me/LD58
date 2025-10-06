@@ -191,7 +191,7 @@ MonoBehaviour:
   firePoint: {fileID: 7768760543721927848}
   playerProjectilePrefab: {fileID: 251553491832482790, guid: 87484cde20f07c1439997e3b259b9d68, type: 3}
   enemyProjectilePrefab: {fileID: 251553491832482790, guid: 9ef0fdcfa61580740b812ef93996d5ca, type: 3}
-  fireCooldown: 0.6
+  fireCooldown: 1
   projectileSpeed: 8
 --- !u!114 &1474703363856401765
 MonoBehaviour:

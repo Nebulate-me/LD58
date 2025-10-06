@@ -250,6 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightMargin: 10
   otherMargins: 3
+  moduleSpacing: 1.5
 --- !u!1 &2596294701973073086
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,9 +396,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundSamples:
-    keyData: 01000000
+    keyData: 0100000002000000030000000400000005000000
     valueData:
     - {fileID: 3904440943210791185, guid: 1b73693acf6a9f24cb5d92a9fc371e39, type: 3}
+    - {fileID: 3904440943210791185, guid: a8a80f1b778f86f48b93b647dff90959, type: 3}
+    - {fileID: 3904440943210791185, guid: d7e1904c5b9298b408191de940ce889f, type: 3}
+    - {fileID: 3904440943210791185, guid: aadf7ac1d8e5d0c49aeb4306c480c961, type: 3}
+    - {fileID: 3904440943210791185, guid: 7ff220d9f8cee4b4897dcc471ff6fd26, type: 3}
 --- !u!114 &7465197486821155728
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -205,7 +205,7 @@ namespace _Scripts.Game
 
         private void TriggerEncounter(LevelEvent levelEvent)
         {
-            var spawnPos = gameInitializer.PlayerPosition + new Vector2(10f, 0);
+            var spawnPos = new Vector2(12f, 0);
             var prefab = levelEvent.encounter switch
             {
                 EncounterType.Trader => traderEncounterPrefab,

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using _Scripts.Common;
+using _Scripts.Utils.AudioTool.Sounds;
+using Signals;
 using UnityEngine;
 using Utilities.Prefabs;
 using Zenject;
@@ -27,7 +29,7 @@ namespace _Scripts.Ships.Modules
 
         public ModuleType Type => moduleConfig.ModuleType;
         public bool RequiresRepair => health.CurrentHealth < moduleConfig.MaxModuleHealth;
-        public int Score => Mathf.RoundToInt(moduleConfig.Score * health.CurrentHealth / (float) moduleConfig.MaxModuleHealth);
+        public int Score => moduleConfig.Score;
         public IHealth Health => health;
         public SpriteRenderer SpriteRenderer => spriteRenderer;
         public TrainController Train { get; private set; }
@@ -110,7 +112,7 @@ namespace _Scripts.Ships.Modules
             if (delay < 0) throw new ArgumentOutOfRangeException(nameof(delay));
             if (Train != null)
                 Train.RemoveModule(this);
-
+            
             // Allow VFX to play before despawn
             StartCoroutine(DelayedDespawn(delay));
         }
@@ -147,6 +149,7 @@ namespace _Scripts.Ships.Modules
 
         public void Sell(int pointsEarned)
         {
+            SignalsHub.DispatchAsync(new PlaySoundSignal {Name = SoundName.Cash});
             if (TryGetComponent(out ModuleVFXController vfx))
                 vfx.OnSold(pointsEarned);
         }

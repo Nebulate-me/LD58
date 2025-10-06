@@ -9,6 +9,13 @@ namespace _Scripts.Common
     {
         [Header("Colors")]
         [SerializeField] private float flashDuration = 0.1f;
+        
+        [SerializeField] private Color fullHealthColor = Color.white;
+        [SerializeField] private Color lowHealthColor = new(0.6f, 0.3f, 0.3f, 1f);
+        [SerializeField] private GameObject smokePrefab;
+        
+        private GameObject _smokeInstance;
+        private bool _smokeActive;
 
         private Health _health;
         private SpriteRenderer _sprite;
@@ -17,6 +24,7 @@ namespace _Scripts.Common
         private Material _mat;
         
         private static readonly int FlashProp = Shader.PropertyToID("_FlashAmount");
+        private static readonly int DarkenProp = Shader.PropertyToID("_DarkenAmount");
 
         public void OnSpawn()
         {
@@ -53,10 +61,13 @@ namespace _Scripts.Common
                 _flashTimer -= Time.deltaTime;
                 float t = Mathf.Clamp01(_flashTimer / flashDuration);
                 _mat.SetFloat(FlashProp, t);
+                _mat.SetFloat(DarkenProp, 0);
             }
             else
             {
                 _mat.SetFloat(FlashProp, 0f);
+                var hpRatio = 1 - Mathf.Clamp01((float)_health.CurrentHealth / _health.MaxHealth);
+                _mat.SetFloat(DarkenProp, hpRatio);
             }
         }
 

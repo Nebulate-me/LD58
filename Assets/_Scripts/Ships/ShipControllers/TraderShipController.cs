@@ -2,6 +2,8 @@
 using _Scripts.Game;
 using UnityEngine;
 using _Scripts.Ships.Modules;
+using _Scripts.Utils.AudioTool.Sounds;
+using Signals;
 using Utilities.Prefabs;
 using Zenject;
 
@@ -89,6 +91,7 @@ namespace _Scripts.Ships.ShipControllers
             cargo.AttachToShip(playerShip);
             cargo.FlipFacing();
             hasBeenTaxed = true;
+            SignalsHub.DispatchAsync(new PlaySoundSignal { Name = SoundName.Tax });
             Debug.Log($"🤝 Trader {name} taxed cargo {cargo.name} to player.");
         }
     }
