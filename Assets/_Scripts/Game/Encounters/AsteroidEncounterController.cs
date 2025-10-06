@@ -15,6 +15,7 @@ namespace _Scripts.Game.Encounters
 
         [Header("Base Settings")]
         [SerializeField] private float baseSpawnInterval = 2f;
+        [SerializeField] private float baseSpawnX = 10f;
         [SerializeField] private int baseMaxActiveAsteroids = 10;
         [SerializeField] private float baseLargeAsteroidChance = 0.25f;
         [SerializeField] private float diagonalChance = 0.15f; // 15% fly diagonally
@@ -49,8 +50,7 @@ namespace _Scripts.Game.Encounters
             spawnTimer += Time.deltaTime;
 
             float diff = Mathf.Clamp01(flowController.CurrentDifficulty);
-
-            // scale difficulty
+            
             float spawnInterval = Mathf.Lerp(baseSpawnInterval, 0.8f, diff);
             int maxActiveAsteroids = Mathf.RoundToInt(Mathf.Lerp(baseMaxActiveAsteroids, baseMaxActiveAsteroids * 2f, diff));
             float largeAsteroidChance = Mathf.Lerp(baseLargeAsteroidChance, 0.5f, diff);
@@ -73,8 +73,8 @@ namespace _Scripts.Game.Encounters
                 return;
             }
 
-            var spawnY = randomService.Float(-10f, 10f);
-            var spawnPos = (Vector2)transform.position + new Vector2(0, spawnY);
+            var spawnY = randomService.Float(-8f, 8f);
+            var spawnPos = (Vector2)transform.position + new Vector2(baseSpawnX, spawnY);
             var asteroidObj = prefabPool.Spawn(prefab, spawnPos, Quaternion.identity, transform);
 
             // direction logic

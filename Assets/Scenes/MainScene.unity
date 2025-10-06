@@ -892,7 +892,6 @@ MonoBehaviour:
   shipParent: {fileID: 1458517961}
   staticParent: {fileID: 1585925208}
   playerTrainPrefab: {fileID: 5860414525004747481, guid: cbde7c7e022297a4bae1efc80359000e, type: 3}
-  taxStationPrefab: {fileID: 5514895927554541824, guid: e4ed4161495d15f4895c20fc719df23c, type: 3}
   playerSpawnPos: {x: -7, y: 0, z: 0}
   carSpacing: 1.5
 --- !u!114 &2010884066
@@ -907,7 +906,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4df6b4bfc5e47dcbf6a4bcdcd5e4e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToReachMaxDifficulty: 600
+  timeToReachMaxDifficulty: 240
+  totalDuration: 300
+  minEventSpacing: 5
   difficultyCurve:
     serializedVersion: 2
     m_Curve:
@@ -915,7 +916,7 @@ MonoBehaviour:
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -923,7 +924,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
+      inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0

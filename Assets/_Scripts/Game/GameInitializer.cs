@@ -21,9 +21,6 @@ namespace _Scripts.Game
 
         [Header("Trains")]
         [SerializeField] private GameObject playerTrainPrefab;
-        
-        [Header("Buildings")]
-        [SerializeField] private GameObject taxStationPrefab;
 
         [Header("Spawn Settings")]
         [SerializeField] private Vector3 playerSpawnPos = new(0, 0, 0);
