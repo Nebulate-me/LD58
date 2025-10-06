@@ -34,6 +34,7 @@ namespace _Scripts.Ships
         }
 
         public bool HasLocomotive => head != null;
+        public Transform Head => head?.transform ?? transform;
 
         void Update()
         {

@@ -9,33 +9,36 @@ namespace _Scripts.Common.Boundary
     /// Ideal for projectiles, asteroids, traders, etc.
     /// </summary>
     [RequireComponent(typeof(Renderer))]
-    public class ScreenBoundaryDespawner : MonoBehaviour
+    public class ScreenBoundaryDespawner : MonoBehaviour, IPoolableResource
     {
-        private Camera _cam;
+        private Camera cam;
         private Renderer _renderer;
         
         [Inject] private IPrefabPool prefabPool;
         [Inject] private ICommonSettingsProvider commonSettingsProvider;
-
-        private void Awake()
+        
+        public void OnSpawn()
         {
-            _cam = Camera.main;
+            cam = Camera.main;
             _renderer = GetComponent<Renderer>();
+        }
+
+        public void OnDespawn()
+        {
+         
         }
 
         private void Update()
         {
-            if (_cam == null || _renderer == null) return;
+            if (cam == null || _renderer == null) return;
 
-            Vector3 pos = transform.position;
+            float halfHeight = cam.orthographicSize;
+            float halfWidth = halfHeight * cam.aspect;
 
-            float halfHeight = _cam.orthographicSize;
-            float halfWidth = halfHeight * _cam.aspect;
-
-            float leftEdge = _cam.transform.position.x - halfWidth - commonSettingsProvider.OtherMargins;
-            float rightEdge = _cam.transform.position.x + halfWidth + commonSettingsProvider.RightMargin;
-            float topEdge = _cam.transform.position.y + halfHeight + commonSettingsProvider.OtherMargins;
-            float bottomEdge = _cam.transform.position.y - halfHeight - commonSettingsProvider.OtherMargins;
+            float leftEdge = cam.transform.position.x - halfWidth - commonSettingsProvider.OtherMargins;
+            float rightEdge = cam.transform.position.x + halfWidth + commonSettingsProvider.RightMargin;
+            float topEdge = cam.transform.position.y + halfHeight + commonSettingsProvider.OtherMargins;
+            float bottomEdge = cam.transform.position.y - halfHeight - commonSettingsProvider.OtherMargins;
 
             Bounds bounds = _renderer.bounds;
 

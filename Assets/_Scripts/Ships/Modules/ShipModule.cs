@@ -1,4 +1,6 @@
-﻿using _Scripts.Common;
+﻿using System;
+using System.Collections;
+using _Scripts.Common;
 using UnityEngine;
 using Utilities.Prefabs;
 using Zenject;
@@ -100,6 +102,23 @@ namespace _Scripts.Ships.Modules
                 Train.RemoveModule(this);
             }
             
+            prefabPool.Despawn(gameObject);
+        }
+        
+        public void DestroyModule(float delay = 0.35f)
+        {
+            if (delay < 0) throw new ArgumentOutOfRangeException(nameof(delay));
+            if (Train != null)
+                Train.RemoveModule(this);
+
+            // Allow VFX to play before despawn
+            StartCoroutine(DelayedDespawn(delay));
+        }
+
+        private IEnumerator DelayedDespawn(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
             prefabPool.Despawn(gameObject);
         }
 

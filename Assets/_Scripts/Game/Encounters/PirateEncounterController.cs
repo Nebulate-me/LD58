@@ -53,9 +53,6 @@ namespace _Scripts.Game.Encounters
                     Facing = FacingDirection.Left,
                     Modules = new List<ModuleConfig> {locomotiveModuleConfig, cannonModuleConfig }
                 }, spawnPosition);
-                
-                var pirateTrain = trainObj.GetComponent<PirateShipController>();
-                pirateTrain.Initialize(playerShip.transform);
             }
         }
 

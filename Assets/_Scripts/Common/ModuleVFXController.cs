@@ -67,7 +67,9 @@ namespace _Scripts.Common
         private void SpawnVFX(GameObject prefab, float lifetime)
         {
             GameObject vfx = prefabPool.Spawn(prefab, transform.position, Quaternion.identity);
+            vfx.transform.SetParent(null, true); // detach from module before despawn
 
+            
             Destroy(vfx, lifetime);
         }
 
@@ -76,6 +78,7 @@ namespace _Scripts.Common
             if (floatingTextPrefab == null) return;
 
             var txtObj = prefabPool.Spawn(floatingTextPrefab, transform.position, Quaternion.identity);
+            txtObj.transform.SetParent(null, true);
             var textMesh = txtObj.GetComponentInChildren<TMPro.TextMeshPro>();
             if (textMesh != null)
             {
@@ -83,8 +86,10 @@ namespace _Scripts.Common
                 textMesh.color = color;
             }
             
-            txtObj.transform.DOMoveY(transform.position.y + 1f, 1f);
-            prefabPool.Despawn(txtObj);
+            txtObj.transform.DOMoveY(transform.position.y + 1f, 1f).OnComplete(() =>
+            {
+                prefabPool.Despawn(txtObj); 
+            });
         }
     }
 }

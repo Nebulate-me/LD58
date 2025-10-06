@@ -17,7 +17,7 @@ namespace _Scripts.Ships.ShipControllers
 
         [Inject] private IGameFlowController gameFlowController;
         
-        private TrainController traderTrain;
+        private TrainController traderShip;
         private TrainController playerShip;
         private bool hasBeenTaxed = false;
         
@@ -33,20 +33,20 @@ namespace _Scripts.Ships.ShipControllers
 
         private void Awake()
         {
-            traderTrain = GetComponent<TrainController>();
+            traderShip = GetComponent<TrainController>();
         }
 
         private void Update()
         {
             if (!playerShip) return;
 
-            Vector2 pos = transform.position;
+            Vector2 headPosition = traderShip.Head.position;
             Vector2 moveDir = Vector2.left; // base drift (move off screen)
 
             // 1️⃣ Dodge bullets
             var incoming = FindObjectsOfType<ProjectileController>()
                 .Where(p => p.IsPlayerProjectile &&
-                            Vector2.Distance(p.transform.position, pos) < dodgeRadius)
+                            Vector2.Distance(p.transform.position, headPosition) < dodgeRadius)
                 .ToList();
             if (incoming.Any())
             {
@@ -55,9 +55,9 @@ namespace _Scripts.Ships.ShipControllers
                 moveDir = Vector2.Perpendicular(avg).normalized;
             }
             
-            moveDir = CheckCargoPickup(pos, moveDir);
+            moveDir = CheckCargoPickup(headPosition, moveDir);
 
-            CheckTax(pos);
+            CheckTax(headPosition);
 
             transform.Translate(moveDir * moveSpeed * Time.deltaTime, Space.World);
         }
@@ -78,10 +78,10 @@ namespace _Scripts.Ships.ShipControllers
         {
             if (hasBeenTaxed) return;
             
-            var distToPlayer = Vector2.Distance(playerShip.transform.position, pos);
+            var distToPlayer = Vector2.Distance(playerShip.Head.position, pos);
             if (!(distToPlayer < taxationDistance)) return;
             
-            var cargo = traderTrain.GetModules()
+            var cargo = traderShip.GetModules()
                 .LastOrDefault(m => m.Type == ModuleType.Cargo);
             if (cargo == null) return;
                 

@@ -60,13 +60,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f8f275da74a4321be49e1b17b63e0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minCargoCount: 1
-  maxCargoCount: 3
   moveSpeed: 3.5
-  detectionRadius: 5
-  transferDelay: 1.5
-  fleeSpeedMultiplier: 1.5
-  despawnDistance: 40
+  dodgeRadius: 3
+  cargoPickupRadius: 3
+  taxationDistance: 3
 --- !u!114 &2580419660575920066
 MonoBehaviour:
   m_ObjectHideFlags: 0
