@@ -32,7 +32,10 @@ namespace _Scripts.Ships
         {
             transform.Translate(Vector3.right * _speed * Time.deltaTime);
             _timer += Time.deltaTime;
-            if (_timer >= lifeTime) Destroy(gameObject);
+            if (_timer >= lifeTime)
+            {
+                prefabPool.Despawn(gameObject);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)

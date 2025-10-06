@@ -33,6 +33,8 @@ namespace _Scripts.Ships
             set => isPlayerControlled = value;
         }
 
+        public bool HasLocomotive => head != null;
+
         void Update()
         {
             if (head == null) return;

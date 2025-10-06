@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using UnityEngine;
 using _Scripts.Ships.Modules;
-using Utilities.Prefabs;
 
 namespace _Scripts.Ships.ShipControllers
 {
@@ -11,22 +10,27 @@ namespace _Scripts.Ships.ShipControllers
         [SerializeField] private float moveSpeed = 3f;
         [SerializeField] private float dodgeRadius = 3f;
         [SerializeField] private float cargoPickupRadius = 4f;
+        [SerializeField] private float donationDistance = 6f;
 
-        private TrainController _train;
-        private Transform _player;
+        private TrainController train;
+        private Transform player;
 
-        private void Awake() => _train = GetComponent<TrainController>();
-        
-        
+        private void Awake()
+        {
+            train = GetComponent<TrainController>();
+        }
 
-        public void Initialize(Transform player) => _player = player;
+        public void Initialize(Transform playerTransform)
+        {
+            player = playerTransform;
+        }
 
         private void Update()
         {
-            if (_player == null) return;
+            if (player == null) return;
 
             Vector2 pos = transform.position;
-            Vector2 moveDir = Vector2.left; // base drift
+            Vector2 moveDir = Vector2.left; // base drift (move off screen)
 
             // 1️⃣ Dodge bullets
             var incoming = FindObjectsOfType<ProjectileController>()
@@ -39,7 +43,7 @@ namespace _Scripts.Ships.ShipControllers
                 moveDir = Vector2.Perpendicular(avg).normalized;
             }
 
-            // 2️⃣ Cargo pickup preference
+            // 2️⃣ Cargo pickup
             var loose = FindObjectsOfType<ShipModule>()
                 .Where(m => m.Type == ModuleType.Cargo && m.Train == null)
                 .OrderBy(m => Vector2.Distance(pos, m.transform.position))
@@ -47,7 +51,38 @@ namespace _Scripts.Ships.ShipControllers
             if (loose && Vector2.Distance(pos, loose.transform.position) < cargoPickupRadius)
                 moveDir = (loose.transform.position - transform.position).normalized;
 
+            // 3️⃣ Cargo donation to player
+            float distToPlayer = Vector2.Distance(player.position, pos);
+            if (distToPlayer < donationDistance)
+            {
+                // give last cargo
+                var cargo = train.GetModules()
+                    .LastOrDefault(m => m.Type == ModuleType.Cargo);
+                if (cargo != null)
+                {
+                    train.RemoveModule(cargo);
+                    cargo.Detach();
+
+                    // gently move it toward player
+                    cargo.StartCoroutine(MoveCargoToPlayer(cargo.transform, player));
+
+                    Debug.Log($"🤝 Trader {name} donated cargo {cargo.name} to player.");
+                }
+            }
+
             transform.Translate(moveDir * moveSpeed * Time.deltaTime, Space.World);
+        }
+
+        private System.Collections.IEnumerator MoveCargoToPlayer(Transform cargo, Transform player)
+        {
+            float t = 0f;
+            Vector3 start = cargo.position;
+            while (t < 1f && cargo != null && player != null)
+            {
+                t += Time.deltaTime;
+                cargo.position = Vector3.Lerp(start, player.position, t);
+                yield return null;
+            }
         }
     }
 }

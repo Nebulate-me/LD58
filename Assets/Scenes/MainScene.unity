@@ -694,6 +694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3559665667432202758, guid: a87bc171c382cee41b6736148e700fa5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5353698132395313671, guid: a87bc171c382cee41b6736148e700fa5, type: 3}
       propertyPath: m_Camera
       value: 
@@ -768,6 +772,11 @@ Transform:
 --- !u!4 &1761480724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4381783419962549665, guid: acbf57ebf30f7754caf4936fd0232b73, type: 3}
+  m_PrefabInstance: {fileID: 6389537224375172186}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1944697137 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3979165810866533590, guid: acbf57ebf30f7754caf4936fd0232b73, type: 3}
   m_PrefabInstance: {fileID: 6389537224375172186}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1952183604
@@ -944,6 +953,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundScroll
       objectReference: {fileID: 0}
+    - target: {fileID: 3952026538477862181, guid: acbf57ebf30f7754caf4936fd0232b73, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1944697137}
     - target: {fileID: 4381783419962549665, guid: acbf57ebf30f7754caf4936fd0232b73, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

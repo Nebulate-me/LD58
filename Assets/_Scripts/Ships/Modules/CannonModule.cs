@@ -38,6 +38,10 @@ namespace _Scripts.Ships.Modules
 
         private void Update()
         {
+            // Skip firing if train destroyed or no locomotive
+            if (_shipModule.Train == null || !_shipModule.Train.HasLocomotive)
+                return;
+
             _cooldownTimer -= Time.deltaTime;
 
             if (_isPlayer)

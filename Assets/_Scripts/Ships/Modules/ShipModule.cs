@@ -112,5 +112,11 @@ namespace _Scripts.Ships.Modules
                 transform.position = Vector3.MoveTowards(transform.position, newPos, moveSpeed * Time.deltaTime);
             }
         }
+
+        public void Detach()
+        {
+            transform.SetParent(null);
+            Train = null;
+        }
     }
 }
