@@ -2,6 +2,9 @@
 using System.Numerics;
 using _Scripts.Ships;
 using _Scripts.Ships.Modules;
+using _Scripts.Utils.AudioTool.Music;
+using _Scripts.Utils.AudioTool.Music.Signals;
+using Signals;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -36,6 +39,7 @@ namespace _Scripts.Game
 
         private void Start()
         {
+            SignalsHub.DispatchAsync(new PlayMusicSignal {Type = MusicType.MenuMusic});
             SpawnPlayerTrain(playerTrainPrefab);
         }
 

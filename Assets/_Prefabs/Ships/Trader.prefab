@@ -62,8 +62,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
   dodgeRadius: 3
-  cargoPickupRadius: 3
-  taxationDistance: 3
+  cargoPickupRadius: 2
+  taxationDistance: 2
 --- !u!114 &2580419660575920066
 MonoBehaviour:
   m_ObjectHideFlags: 0
