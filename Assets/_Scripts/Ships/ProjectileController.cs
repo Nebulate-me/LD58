@@ -49,8 +49,8 @@ namespace _Scripts.Ships
             
             var module = other.GetComponent<ShipModule>();
             if (module != null &&
-                module.Train != null &&
-                module.Train.IsPlayerControlled != _isPlayer)
+                module.Ship != null &&
+                module.Ship.IsPlayerControlled != _isPlayer)
             {
                 Damage(module.Health);
                 return;

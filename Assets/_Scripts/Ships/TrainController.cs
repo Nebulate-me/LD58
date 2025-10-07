@@ -35,6 +35,7 @@ namespace _Scripts.Ships
 
         public bool HasLocomotive => head != null;
         public Transform Head => head?.transform ?? transform;
+        public FacingDirection Facing { get; private set; } = FacingDirection.Left;
 
         void Update()
         {
@@ -109,19 +110,9 @@ namespace _Scripts.Ships
             }
         }
         
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.TryGetComponent(out ShipModule cargo) &&
-                cargo.Type == ModuleType.Cargo && 
-                cargo.Train == null)
-            {
-                cargo.AttachToShip(this);
-                Debug.Log($"{name} picked up loose cargo {cargo.name}");
-            }
-        }
-        
         public void AssembleShip(ShipConfiguration shipConfiguration, Vector3 startPos)
         {
+            Facing = shipConfiguration.Facing;
             var currentModulePosition = startPos;
             var positionIncrement = (int) shipConfiguration.Facing * -commonSettingsProvider.ModuleSpacing;
             

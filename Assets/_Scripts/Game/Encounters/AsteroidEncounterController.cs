@@ -73,8 +73,8 @@ namespace _Scripts.Game.Encounters
                 return;
             }
 
-            var spawnY = randomService.Float(-8f, 8f);
-            var spawnPos = (Vector2)transform.position + new Vector2(baseSpawnX, spawnY);
+            var spawnY = randomService.Float(-6f, 6f);
+            var spawnPos = new Vector2(baseSpawnX, spawnY);
             var asteroidObj = prefabPool.Spawn(prefab, spawnPos, Quaternion.identity, transform);
 
             // direction logic

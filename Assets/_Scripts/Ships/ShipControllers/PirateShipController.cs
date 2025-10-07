@@ -20,12 +20,13 @@ namespace _Scripts.Ships.ShipControllers
         [SerializeField] private float attackAlignTolerance = 12f;
         [SerializeField] private float retreatHealthThreshold = 0.25f;
         [SerializeField] private float screenRightLimit = 8f;
+        [SerializeField] private float minimumXPosition = 0f;
         
         [Inject] private IGameFlowController gameFlowController;
 
         [ShowInInspector,ReadOnly] private TrainController pirateShip;
         [ShowInInspector,ReadOnly] private TrainController playerShip;
-        
+
         public void OnSpawn()
         {
             pirateShip = GetComponent<TrainController>();
@@ -60,7 +61,7 @@ namespace _Scripts.Ships.ShipControllers
                 // 2️⃣ Attack logic: close in horizontally (left-facing)
                 float horizontalGap = headPosition.x - playerShip.Head.position.x;
 
-                if (horizontalGap > 3f)
+                if (horizontalGap > 3f && headPosition.x > minimumXPosition)
                 {
                     // move further left into screen until within 3 units of player x
                     moveDirection = Vector2.left;
@@ -89,7 +90,7 @@ namespace _Scripts.Ships.ShipControllers
         private Vector2 CheckCargoPickup(Vector2 pos, Vector2 moveDir)
         {
             var loose = FindObjectsOfType<ShipModule>()
-                .Where(m => m.Type == ModuleType.Cargo && m.Train == null)
+                .Where(m => m.Type == ModuleType.Cargo && m.Ship == null)
                 .OrderBy(m => Vector2.Distance(pos, m.transform.position))
                 .FirstOrDefault();
             if (loose && Vector2.Distance(pos, loose.transform.position) < cargoPickupRadius)

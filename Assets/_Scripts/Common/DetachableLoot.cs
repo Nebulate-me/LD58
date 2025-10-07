@@ -21,7 +21,7 @@ namespace _Scripts.Common
         private void OnDestroyed(Health _)
         {
             // detach from train so the module stops following
-            if (_module.Train != null)
+            if (_module.Ship != null)
             {
                 _module.DetachFromShip();
             }

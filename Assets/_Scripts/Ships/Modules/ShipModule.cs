@@ -3,6 +3,7 @@ using System.Collections;
 using _Scripts.Common;
 using _Scripts.Utils.AudioTool.Sounds;
 using Signals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Utilities.Prefabs;
 using Zenject;
@@ -32,7 +33,7 @@ namespace _Scripts.Ships.Modules
         public int Score => moduleConfig.Score;
         public IHealth Health => health;
         public SpriteRenderer SpriteRenderer => spriteRenderer;
-        public TrainController Train { get; private set; }
+        [ShowInInspector,ReadOnly] public TrainController Ship { get; private set; }
         
         public void SetFacing(FacingDirection dir)
         {
@@ -81,20 +82,21 @@ namespace _Scripts.Ships.Modules
 
         public void AttachToShip(TrainController ship)
         {
-            if (Train != null) return;
+            if (Ship != null) return;
             
             transform.SetParent(ship.transform);
-            Train = ship;
-            Train.AddModule(this);
+            Ship = ship;
+            Ship.AddModule(this);
+            SetFacing(ship.Facing);
         }
         
         public void DetachFromShip()
         {
-            if (Train == null) return;
+            if (Ship == null) return;
             
-            Train.RemoveModule(this);
+            Ship.RemoveModule(this);
             transform.SetParent(null);
-            Train = null;
+            Ship = null;
         }
 
         private IEnumerator DelayedDespawn(float delay)

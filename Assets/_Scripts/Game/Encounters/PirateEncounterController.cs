@@ -23,7 +23,7 @@ namespace _Scripts.Game.Encounters
             if (!moduleRegistry.TryGetModuleConfig(ModuleType.Turret, out var cannonModuleConfig)) return;
             if (!gameFlowController.TryGetPlayer(out var playerShip)) return;
             
-            var pirateCount = Mathf.RoundToInt(Mathf.Lerp(1, 4, gameFlowController.CurrentDifficulty));
+            var pirateCount = Mathf.RoundToInt(Mathf.Lerp(1, 3, gameFlowController.CurrentDifficulty));
             for (var i = 0; i < pirateCount; i++)
             {
                 var spawnPosition = baseSpawnPosition + new Vector3(0, i * 3f, 0);
@@ -51,7 +51,7 @@ namespace _Scripts.Game.Encounters
                 train.AssembleShip(new ShipConfiguration
                 {
                     Facing = FacingDirection.Left,
-                    Modules = new List<ModuleConfig> {locomotiveModuleConfig, cannonModuleConfig }
+                    Modules = modules
                 }, spawnPosition);
             }
         }

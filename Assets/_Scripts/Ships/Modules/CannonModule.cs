@@ -27,7 +27,7 @@ namespace _Scripts.Ships.Modules
         private float cooldownTimer;
         private Vector2 facing = Vector2.right;
 
-        private bool IsPlayer => shipModule.Train && shipModule.Train.IsPlayerControlled;
+        private bool IsPlayer => shipModule.Ship && shipModule.Ship.IsPlayerControlled;
 
         private void Awake() => shipModule = GetComponent<ShipModule>();
         
@@ -43,7 +43,7 @@ namespace _Scripts.Ships.Modules
 
         private void Update()
         {
-            if (shipModule.Train == null || !shipModule.Train.HasLocomotive)
+            if (shipModule.Ship == null || !shipModule.Ship.HasLocomotive)
                 return;
             
             cooldownTimer -= Time.deltaTime;

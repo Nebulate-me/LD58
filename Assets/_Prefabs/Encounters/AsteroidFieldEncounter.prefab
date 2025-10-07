@@ -46,7 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smallAsteroidPrefab: {fileID: 6583630155174885228, guid: 3117f661b3d714541a872e0c18682fa9, type: 3}
   largeAsteroidPrefab: {fileID: 3043301986954033362, guid: e85c9fd2f7a51e4429b56d735f579b24, type: 3}
-  largeAsteroidChance: 0.25
-  spawnRadius: 4.5
-  spawnInterval: 0.5
-  maxActiveAsteroids: 12
+  baseSpawnInterval: 2
+  baseSpawnX: 10
+  baseMaxActiveAsteroids: 10
+  baseLargeAsteroidChance: 0.25
+  diagonalChance: 0.15
+  diagonalAngleRange: 25

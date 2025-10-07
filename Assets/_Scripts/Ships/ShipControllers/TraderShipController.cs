@@ -67,7 +67,7 @@ namespace _Scripts.Ships.ShipControllers
         private Vector2 CheckCargoPickup(Vector2 pos, Vector2 moveDir)
         {
             var loose = FindObjectsOfType<ShipModule>()
-                .Where(m => m.Type == ModuleType.Cargo && m.Train == null)
+                .Where(m => m.Type == ModuleType.Cargo && m.Ship == null)
                 .OrderBy(m => Vector2.Distance(pos, m.transform.position))
                 .FirstOrDefault();
             if (loose && Vector2.Distance(pos, loose.transform.position) < cargoPickupRadius)

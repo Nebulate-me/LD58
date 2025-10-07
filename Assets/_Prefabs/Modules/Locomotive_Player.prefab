@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5308192347308679330}
   - component: {fileID: 4645579474378131919}
   - component: {fileID: -6331916920451977647}
+  - component: {fileID: -5862940995405970273}
   - component: {fileID: 2699884140036178618}
   - component: {fileID: 1181594249118235867}
   - component: {fileID: 2975974553850373555}
@@ -53,6 +54,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2699884140036178618}
   health: {fileID: 5308192347308679330}
   moduleConfig: {fileID: 11400000, guid: f238a745be955f24e9f554c723c97df2, type: 2}
+  facing: 1
 --- !u!114 &5308192347308679330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
+  despawnOnDeath: 0
+  playExplosionSoundOnDeath: 1
 --- !u!114 &4645579474378131919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +96,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashDuration: 0.1
+  fullHealthColor: {r: 1, g: 1, b: 1, a: 1}
+  lowHealthColor: {r: 0.6, g: 0.3, b: 0.3, a: 1}
+  smokePrefab: {fileID: 0}
+--- !u!114 &-5862940995405970273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6904372714485702208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edb9afcf373447788c434bd17affb0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipModule: {fileID: 9097260060425157846}
 --- !u!212 &2699884140036178618
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -177,7 +197,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

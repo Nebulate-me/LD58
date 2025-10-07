@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pirateTrainPrefab: {fileID: 5860414525004747481, guid: b672e672c5f3c4c41b475b49437c05d6, type: 3}
+  baseSpawnPosition: {x: 10, y: 0, z: 0}

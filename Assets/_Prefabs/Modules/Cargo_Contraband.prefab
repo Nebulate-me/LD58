@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1474703363856401765}
   - component: {fileID: -6795576658126688998}
   - component: {fileID: -3052858343102612050}
-  - component: {fileID: 6243102858404612384}
   - component: {fileID: 17227665168938058}
   - component: {fileID: 4523560187712799301}
   - component: {fileID: 5921670999532740468}
@@ -101,18 +100,6 @@ MonoBehaviour:
   explosionVFX: {fileID: 4282455261246057440, guid: 08c0760eef2fd7847b8dbc5843fbeac5, type: 3}
   saleVFX: {fileID: 0}
   floatingTextPrefab: {fileID: 4454329636547052727, guid: 53c0c9783c0cb264bad9841ca6f385b3, type: 3}
---- !u!114 &6243102858404612384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7354222955467436449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a16dc21927e493781367e5acec537d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &17227665168938058
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -198,7 +185,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
