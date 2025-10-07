@@ -98,6 +98,10 @@ namespace _Scripts.Game
             // --- 0️⃣ Ensure an early Trader event right after start ---
             float earlyTraderTime = Mathf.Max(minEventSpacing * 1.5f, 5f);
             AddEventSafe(earlyTraderTime, EncounterType.Trader);
+            
+            // --- 0️⃣ Ensure an early Asteroid event right after start ---
+            float earlyAsteroidTime = Mathf.Max(minEventSpacing * 3f, 7.5f);
+            AddEventSafe(earlyAsteroidTime, EncounterType.AsteroidField);
 
             // --- 1️⃣ Fixed Tax Station positions ---
             float[] taxFractions = { 0.10f, 0.25f, 0.45f, 0.70f, 0.95f };
@@ -110,7 +114,7 @@ namespace _Scripts.Game
             if (taxTimes.Count > 0)
             {
                 float firstTax = taxTimes[0];
-                float pirateAfterTax = firstTax + Mathf.Max(minEventSpacing, 5f);
+                float pirateAfterTax = firstTax + Mathf.Max(minEventSpacing, 7.5f);
                 AddEventSafe(pirateAfterTax, EncounterType.PirateAttack);
             }
 
@@ -193,8 +197,7 @@ namespace _Scripts.Game
 
             levelMap.Add(new LevelEvent { time = time, encounter = type });
         }
-
-// --- Helper: returns random time respecting minEventSpacing margins ---
+        
         private float RandomBetweenSafe(float start, float end)
         {
             if (end - start < minEventSpacing)

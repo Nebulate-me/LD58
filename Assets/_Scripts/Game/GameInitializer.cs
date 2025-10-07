@@ -54,7 +54,7 @@ namespace _Scripts.Game
             var startingPlayerShipConfiguration = new ShipConfiguration
             {
                 Facing = FacingDirection.Right,
-                Modules = new List<ModuleConfig> { locomotiveConfig, cargoConfig, cannonConfig}
+                Modules = new List<ModuleConfig> { locomotiveConfig, cannonConfig, cargoConfig}
             };
             PlayerShip.AssembleShip(startingPlayerShipConfiguration, playerSpawnPos);
         }

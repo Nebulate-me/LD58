@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+  despawnOnDeath: 1
   playExplosionSoundOnDeath: 0
 --- !u!114 &879342322597525888
 MonoBehaviour:
@@ -93,6 +94,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashDuration: 0.1
+  fullHealthColor: {r: 1, g: 1, b: 1, a: 1}
+  lowHealthColor: {r: 0.6, g: 0.3, b: 0.3, a: 1}
+  smokePrefab: {fileID: 0}
 --- !u!212 &4924811759905442480
 SpriteRenderer:
   m_ObjectHideFlags: 0

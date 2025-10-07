@@ -11,6 +11,7 @@ namespace _Scripts.Common
     public class Health : MonoBehaviour, IHealth, IPoolableResource
     {
         [SerializeField] private int maxHealth = 3;
+        [SerializeField] private bool despawnOnDeath = false;
         [SerializeField] private bool playExplosionSoundOnDeath = true;
 
         public int MaxHealth => maxHealth;
@@ -61,9 +62,12 @@ namespace _Scripts.Common
         {
             if (IsDead) return;
             IsDead = true;
-            prefabPool.Despawn(gameObject);
+            
             if (playExplosionSoundOnDeath) SignalsHub.DispatchAsync(new PlaySoundSignal {Name = SoundName.Explosion});
+            
             OnDeath?.Invoke(this);
+            
+            if (despawnOnDeath) prefabPool.Despawn(gameObject);
         }
 
         public void OnSpawn()

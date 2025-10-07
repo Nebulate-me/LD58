@@ -17,4 +17,4 @@ MonoBehaviour:
   cargoType: 4
   prefab: {fileID: 7354222955467436449, guid: 97cb4f64232a6354f894b5a12e5ec1cd, type: 3}
   maxModuleHealth: 1
-  score: 200
+  score: 125

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 17227665168938058}
   health: {fileID: 1474703363856401765}
-  moduleConfig: {fileID: 11400000, guid: 23c99e27dc10c814992881dc2ea76b71, type: 2}
+  moduleConfig: {fileID: 11400000, guid: bc24cc9c7d8b5b24f860395f36309844, type: 2}
   facing: 1
 --- !u!114 &1474703363856401765
 MonoBehaviour:
@@ -67,7 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23140639fdea449a83fffba854737dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
+  despawnOnDeath: 0
+  playExplosionSoundOnDeath: 1
 --- !u!114 &-6795576658126688998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +83,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashDuration: 0.1
+  fullHealthColor: {r: 1, g: 1, b: 1, a: 1}
+  lowHealthColor: {r: 0.6, g: 0.3, b: 0.3, a: 1}
+  smokePrefab: {fileID: 0}
 --- !u!114 &-3052858343102612050
 MonoBehaviour:
   m_ObjectHideFlags: 0

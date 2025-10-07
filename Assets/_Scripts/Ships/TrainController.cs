@@ -88,8 +88,9 @@ namespace _Scripts.Ships
 
             if (head == null)
             {
-                foreach (var shipModule in GetModules())
+                for (var index = modules.Count - 1; index >= 0; index--)
                 {
+                    var shipModule = modules[index];
                     shipModule.DetachFromShip();
                 }
 

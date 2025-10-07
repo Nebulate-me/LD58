@@ -16,7 +16,7 @@ namespace _Scripts.Ships.Modules
     }
 
     [RequireComponent(typeof(Collider2D), typeof(Health))]
-    public class ShipModule : MonoBehaviour
+    public class ShipModule : MonoBehaviour, IPoolableResource
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Health health;
@@ -97,26 +97,6 @@ namespace _Scripts.Ships.Modules
             Train = null;
         }
 
-        public void DestroyModule()
-        {
-            if (Train != null)
-            {
-                Train.RemoveModule(this);
-            }
-            
-            prefabPool.Despawn(gameObject);
-        }
-        
-        public void DestroyModule(float delay = 0.35f)
-        {
-            if (delay < 0) throw new ArgumentOutOfRangeException(nameof(delay));
-            if (Train != null)
-                Train.RemoveModule(this);
-            
-            // Allow VFX to play before despawn
-            StartCoroutine(DelayedDespawn(delay));
-        }
-
         private IEnumerator DelayedDespawn(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -152,6 +132,25 @@ namespace _Scripts.Ships.Modules
             SignalsHub.DispatchAsync(new PlaySoundSignal {Name = SoundName.Cash});
             if (TryGetComponent(out ModuleVFXController vfx))
                 vfx.OnSold(pointsEarned);
+            
+            DetachFromShip();
+            prefabPool.Despawn(gameObject);
+        }
+
+        public void OnSpawn()
+        {
+            health.OnDeath += OnDeath;
+        }
+
+        public void OnDespawn()
+        {
+            health.OnDeath -= OnDeath;
+        }
+
+        private void OnDeath(Health diedHealth)
+        {
+            DetachFromShip();
+            prefabPool.Despawn(gameObject);
         }
     }
 }

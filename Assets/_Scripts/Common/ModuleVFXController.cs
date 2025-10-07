@@ -68,7 +68,6 @@ namespace _Scripts.Common
         {
             GameObject vfx = prefabPool.Spawn(prefab, transform.position, Quaternion.identity);
             vfx.transform.SetParent(null, true); // detach from module before despawn
-
             
             Destroy(vfx, lifetime);
         }

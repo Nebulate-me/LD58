@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CargoModule_Captive
   m_EditorClassIdentifier: 
   moduleType: 2
+  locomotiveType: 0
   cargoType: 3
   prefab: {fileID: 7354222955467436449, guid: 12e62410d4d1f7840b398e741ae5983e, type: 3}
-  maxModuleHealth: 1
-  score: 150
+  maxModuleHealth: 3
+  score: 75
